@@ -40,14 +40,13 @@
           <v-text-field
             v-model="passwordConfirm"
             :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.required, rules.min]"
+            :rules="passwordRules"
             :type="show2 ? 'text' : 'password'"
             name="input-10-1"
             label="Confirm Password"
             hint="At least 8 characters"
             counter
             @click:append="show2 = !show2"
-            @keyup="confirmPassword"
           ></v-text-field>
           <v-btn
             :disabled="!valid"
@@ -83,26 +82,29 @@ export default {
       (v) => !!v || "E-mail is required",
       (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
     ],
-    // password & password confirm val
+    // password val
     show1: false,
     password: "",
     rules: {
-      required: (value) => !!value || "Password is required.",
+      required: (value) => !!value || "Password is required",
       min: (v) => v.length >= 8 || "Min 8 characters",
     },
+    // password confirm val
     show2: false,
     passwordConfirm: "",
+    passwordRules: [(v) => !!v || "Password confirm is required"],
   }),
 
   methods: {
     validate() {
+      if (this.password != this.passwordConfirm) {
+        alert("Password mush match");
+        return false;
+      }
       this.$refs.form.validate();
     },
     reset() {
       this.$refs.form.reset();
-    },
-    resetValidation() {
-      this.$refs.form.resetValidation();
     },
   },
 };

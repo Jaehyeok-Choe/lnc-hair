@@ -23,19 +23,21 @@ const routes = [
     path: "/login",
     name: "Login",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/auth/Login.vue"),
+      import(/* webpackChunkName: "login" */ "../views/auth/Login.vue"),
   },
   {
     path: "/join",
     name: "Join",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/auth/Join.vue"),
+      import(/* webpackChunkName: "join" */ "../views/auth/Join.vue"),
   },
   {
     path: "/resetPassword",
     name: "ResetPassword",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/auth/ResetPassword.vue"),
+      import(
+        /* webpackChunkName: "resetPassword" */ "../views/auth/ResetPassword.vue"
+      ),
   },
 ];
 
