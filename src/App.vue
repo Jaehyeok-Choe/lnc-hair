@@ -107,7 +107,7 @@ export default {
         title: "About",
       },
     ],
-    authMenu: ["Login", "Join"],
+    authMenu: ["Login", "Register"],
   }),
 };
 </script>

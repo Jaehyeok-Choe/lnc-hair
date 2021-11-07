@@ -67,6 +67,11 @@
 </template>
 
 <script>
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
+import Swal from "sweetalert2";
+
 export default {
   data: () => ({
     valid: true,
@@ -101,7 +106,41 @@ export default {
         alert("Password mush match");
         return false;
       }
-      this.$refs.form.validate();
+      if (this.$refs.form.validate()) {
+        return this.submit();
+      }
+    },
+    async submit() {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then((user) => {
+          console.log(user);
+          // save user info in firestore
+          const db = firebase.firestore();
+          db.collection("users").doc(user.user.uid).set({
+            name: this.name,
+            email: this.email,
+          });
+          // 필드값 가져와서 뿌리는것부터 시작 2021.11.08
+          const docRef = db.collection("users").doc(user.user.uid);
+          docRef.get().then((doc) => {
+            doc.data().name;
+          });
+
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `Account created for `,
+            showConfirmButton: false,
+            timer: 3000,
+          });
+          console.log(user);
+          this.$router.push({ name: "Login" });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     reset() {
       this.$refs.form.reset();

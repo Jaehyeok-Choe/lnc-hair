@@ -46,7 +46,7 @@
       </v-card-text>
     </v-card>
     <center>
-      <router-link to="/join">Create an account</router-link>
+      <router-link to="/register">Create an account</router-link>
     </center>
   </v-container>
 </template>
