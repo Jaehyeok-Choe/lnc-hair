@@ -122,20 +122,16 @@ export default {
             name: this.name,
             email: this.email,
           });
-          // 필드값 가져와서 뿌리는것부터 시작 2021.11.08
-          const docRef = db.collection("users").doc(user.user.uid);
-          docRef.get().then((doc) => {
-            doc.data().name;
-          });
 
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: `Account created for `,
+            title:
+              "Congratulations, your account has been successfully created.",
             showConfirmButton: false,
-            timer: 3000,
+            timer: 2000,
           });
-          console.log(user);
+
           this.$router.push({ name: "Login" });
         })
         .catch((err) => {
