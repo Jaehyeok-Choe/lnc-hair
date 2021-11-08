@@ -114,20 +114,20 @@ export default {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
-        .then((user) => {
-          console.log(user);
+        .then((userData) => {
+          // set displayName when create account
+          userData.user.updateProfile({ displayName: this.name });
           // save user info in firestore
           const db = firebase.firestore();
-          db.collection("users").doc(user.user.uid).set({
+          db.collection("users").doc(userData.user.uid).set({
             name: this.name,
             email: this.email,
           });
 
           Swal.fire({
-            position: "top-end",
             icon: "success",
             title:
-              "Congratulations, your account has been successfully created.",
+              "Congratulations!<br/> Your account has been successfully created.",
             showConfirmButton: false,
             timer: 2000,
           });

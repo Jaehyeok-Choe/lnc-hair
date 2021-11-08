@@ -52,6 +52,10 @@
 </template>
 
 <script>
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
+import Swal from "sweetalert2";
 export default {
   data: () => ({
     valid: true,
@@ -72,7 +76,29 @@ export default {
 
   methods: {
     validate() {
-      this.$refs.form.validate();
+      if (this.$refs.form.validate()) {
+        return this.submit();
+      }
+    },
+    async submit() {
+      await firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(() => {
+          // Signed in
+          this.$router.push({ name: "Home" });
+        })
+        .catch((error) => {
+          let errorCode = error.code;
+          let errorMessage = error.message;
+          console.log(errorCode, errorMessage);
+          Swal.fire({
+            icon: "error",
+            title: "Login Failed",
+            text: "Password is invalid or the user does not have a password.",
+            footer: "",
+          });
+        });
     },
     reset() {
       this.$refs.form.reset();
