@@ -16,7 +16,7 @@ const routes = [
   {
     path: "/about",
     name: "About",
-    meta: { requiresAuth: true },
+
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -26,19 +26,21 @@ const routes = [
   {
     path: "/login",
     name: "Login",
-    meta: { requiresGuest: true },
+
     component: () =>
       import(/* webpackChunkName: "login" */ "../views/auth/Login.vue"),
   },
   {
     path: "/register",
     name: "Register",
+
     component: () =>
       import(/* webpackChunkName: "join" */ "../views/auth/Register.vue"),
   },
   {
     path: "/resetPassword",
     name: "ResetPassword",
+
     component: () =>
       import(
         /* webpackChunkName: "resetPassword" */ "../views/auth/ResetPassword.vue"
@@ -51,43 +53,21 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
-
+// 로그인 여부에 따라 접근할 수 있는 메뉴 제어
 router.beforeEach((to, from, next) => {
+  const isAuthenticated = firebase.auth().currentUser;
+
   if (
-    to.matched.some((record) => {
-      record.meta.requiresAuth;
-    })
+    (isAuthenticated && to.name === "Login") ||
+    (isAuthenticated && to.name === "Register") ||
+    (isAuthenticated && to.name === "ResetPassword")
   ) {
-    if (!firebase.auth().currentUser) {
-      next("/login");
-    } else {
-      next();
-    }
-  } else if (
-    to.matched.some((record) => {
-      record.meta.requiresGuest;
-    })
-  ) {
-    if (firebase.auth().currentUser) {
-      next("/");
-    } else {
-      next();
-    }
+    next("/");
+  } else if (!isAuthenticated && to.name === "About") {
+    next("/login");
   } else {
     next();
   }
-  // const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
-  // const requiresGuest = to.matched.some((record) => {
-  //   record.meta.requiresGuest;
-  // });
-  // const isAuthenticated = firebase.auth().currentUser;
-  // if (requiresAuth && !isAuthenticated) {
-  //   next("/login");
-  // } else if (requiresGuest && isAuthenticated) {
-  //   next("/");
-  // } else {
-  //   next();
-  // }
 });
 
 export default router;

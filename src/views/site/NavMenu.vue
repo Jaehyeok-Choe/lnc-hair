@@ -9,7 +9,7 @@
       <!-- 오른쪽 상단 버튼클릭시 나오는 메뉴 시작 -->
       <v-menu left bottom>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on">
+          <v-btn icon v-bind="attrs" v-on="on" v-if="isLogin === false">
             <v-icon>mdi-dots-vertical</v-icon>
           </v-btn>
         </template>
@@ -123,6 +123,7 @@ export default {
         const data = await firebase.auth().signOut();
         console.log(data);
         this.$router.push({ name: "Login" });
+        location.reload();
       } catch (error) {
         console.log(error);
       }
