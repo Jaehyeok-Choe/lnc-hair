@@ -58,7 +58,7 @@
           </v-btn>
           <v-btn color="error" class="mr-4" @click="reset"> reset </v-btn>
           <br /><br />
-          <router-link to="/login">Back</router-link>
+          <router-link to="/login">Log in</router-link> with your credentials
         </v-form>
       </v-card-text>
     </v-card>

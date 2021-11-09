@@ -4,7 +4,7 @@
       <v-img
         class="white--text align-end"
         height="200px"
-        src="https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg"
+        src="https://cdn.vuetifyjs.com/images/cards/road.jpg"
       >
         <v-card-title>Reset your password</v-card-title>
       </v-img>
@@ -36,6 +36,10 @@
 </template>
 
 <script>
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
+import Swal from "sweetalert2";
 export default {
   data() {
     return {
@@ -51,6 +55,27 @@ export default {
   methods: {
     validate() {
       this.$refs.form.validate();
+      return this.sendPasswordResetEmail();
+    },
+    sendPasswordResetEmail() {
+      firebase
+        .auth()
+        .sendPasswordResetEmail(this.email)
+        .then(() => {
+          Swal.fire({
+            icon: "success",
+            title: "Email has been sent successfully",
+            footer: `Password reset email has been sent to "${this.email}"`,
+            showConfirmButton: true,
+          });
+        })
+        .catch((error) => {
+          let errorCode = error.code;
+          let errorMessage = error.message;
+          console.log(
+            `Error code: ${errorCode} <br> Error message: ${errorMessage}`
+          );
+        });
     },
   },
 };
