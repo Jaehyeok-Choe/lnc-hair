@@ -3,11 +3,15 @@
     <v-app-bar app color="deep-purple accent-4" dense dark>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>Page title</v-toolbar-title>
+      <v-toolbar-title>
+        <router-link to="/" style="text-decoration: none; color: inherit"
+          >Page title</router-link
+        ></v-toolbar-title
+      >
 
       <v-spacer></v-spacer>
       <!-- 오른쪽 상단 버튼클릭시 나오는 메뉴 시작 -->
-      <v-menu left bottom>
+      <!-- <v-menu left bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn icon v-bind="attrs" v-on="on" v-if="isLogin === false">
             <v-icon>mdi-dots-vertical</v-icon>
@@ -23,7 +27,7 @@
             <v-list-item-title> {{ menu }}</v-list-item-title>
           </v-list-item>
         </v-list>
-      </v-menu>
+      </v-menu> -->
     </v-app-bar>
     <!-- 오른쪽 상단 버튼클릭시 나오는 메뉴 끝 -->
 
@@ -123,7 +127,7 @@ export default {
         const data = await firebase.auth().signOut();
         console.log(data);
         this.$router.push({ name: "Login" });
-        location.reload();
+        // location.reload();
       } catch (error) {
         console.log(error);
       }

@@ -23,6 +23,7 @@
             :rules="emailRules"
             label="E-mail"
             required
+            ref="email"
           ></v-text-field>
 
           <v-text-field
@@ -111,7 +112,7 @@ export default {
       }
     },
     async submit() {
-      firebase
+      await firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then((userData) => {
@@ -131,11 +132,17 @@ export default {
             showConfirmButton: false,
             timer: 2000,
           });
-
-          this.$router.push({ name: "Login" });
+          setTimeout(() => {
+            this.$router.push({ name: "Home" });
+          }, 2200);
         })
         .catch((err) => {
           console.log(err);
+          Swal.fire({
+            icon: "error",
+            title: "email address is already in use by another account.",
+            showConfirmButton: true,
+          });
         });
     },
     reset() {
