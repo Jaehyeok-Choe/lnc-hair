@@ -1,35 +1,16 @@
 <template>
   <div>
-    <v-app-bar app color="deep-purple accent-4" dense dark>
+    <!-- <v-app-bar app color="deep-purple accent-4" dense dark> -->
+    <v-app-bar app color="black" dense dark>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title>
         <router-link to="/" style="text-decoration: none; color: inherit"
-          >Page title</router-link
+          >💈 L.N.C</router-link
         ></v-toolbar-title
       >
-
       <v-spacer></v-spacer>
-      <!-- 오른쪽 상단 버튼클릭시 나오는 메뉴 시작 -->
-      <!-- <v-menu left bottom>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on" v-if="isLogin === false">
-            <v-icon>mdi-dots-vertical</v-icon>
-          </v-btn>
-        </template>
-        <v-list>
-          <v-list-item
-            v-for="menu in authMenu"
-            :key="menu"
-            @click="() => {}"
-            :to="{ name: `${menu}` }"
-          >
-            <v-list-item-title> {{ menu }}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu> -->
     </v-app-bar>
-    <!-- 오른쪽 상단 버튼클릭시 나오는 메뉴 끝 -->
 
     <!-- 왼쪽 상단 버튼클릭시 나오는 메뉴 시작-->
     <v-navigation-drawer app v-model="drawer">

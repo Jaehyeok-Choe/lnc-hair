@@ -1,8 +1,8 @@
 <template>
-  <v-footer color="deep-purple accent-4" padless>
+  <v-footer color="black" padless>
     <v-row justify="center" no-gutters>
       <v-col
-        class="deep-purple accent-4 lighten-2 py-0.5 text-center white--text"
+        class="black accent-4 lighten-2 py-0.5 text-center white--text"
         cols="12"
       >
         Copyright © {{ new Date().getFullYear() }} tbeben.
