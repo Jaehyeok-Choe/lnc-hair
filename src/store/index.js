@@ -3,12 +3,17 @@ import Vuex from "vuex";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import createPersistedState from "vuex-persistedstate";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     isLogin: false,
+    uid: "",
     userDisplayName: "",
+    email: "",
+    phoneNumber: null,
   },
   mutations: {
     setUserLoginOn(state) {
@@ -17,26 +22,29 @@ export default new Vuex.Store({
     setUserLoginOff(state) {
       state.isLogin = false;
     },
-    setUserDisplayName(state, payload) {
-      state.userDisplayName = payload;
+    setUserProfile(state, payload) {
+      state.uid = payload.uid;
+      state.userDisplayName = payload.displayName;
+      state.email = payload.email;
     },
-    emptyUserDisplayName(state) {
+    emptyUserProfile(state) {
       state.userDisplayName = "";
     },
   },
   actions: {
-    async checkLoginStatus({ commit }) {
+    async getCurrentUser({ commit }) {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-          commit("setUserLoginOn");
           const userInfo = firebase.auth().currentUser;
-          commit("setUserDisplayName", userInfo.displayName);
+          commit("setUserProfile", userInfo);
+          commit("setUserLoginOn");
         } else {
+          commit("emptyUserProfile");
           commit("setUserLoginOff");
-          commit("emptyUserDisplayName");
         }
       });
     },
   },
   modules: {},
+  plugins: [createPersistedState({})],
 });

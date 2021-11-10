@@ -28,7 +28,7 @@
             class="grey--text ms-4"
             v-if="this.$store.state.isLogin === true"
           >
-            안녕하세요 {{ userDisplayName }} 고객님!
+            안녕하세요 {{ this.$store.state.userDisplayName }} 고객님!
           </div>
           <div v-else>&nbsp; {{ theBestEver }}</div>
         </v-row>
@@ -66,48 +66,24 @@
         <v-chip>10:00AM</v-chip>
         ~
         <v-chip>20:00PM</v-chip><br /><br />
-        휴무 &nbsp; <v-chip>화요일</v-chip> /
+        휴무 &nbsp; <v-chip>첫째, 둘째, 넷째주 화요일</v-chip> /
         <v-chip>둘째주 일요일</v-chip> &nbsp; <br /><br />
-        <div class="red--text">※ 화요일은 셋째주 화요일만 출근합니다</div>
-        <br />
-        <div class="red--text">※ 일요일은 둘째주 일요일만 휴무입니다</div>
+        <div class="red--text">
+          ※ 셋째주 화요일은 출근합니다 / 둘째주 일요일만 휴무입니다
+        </div>
       </v-card-text>
     </v-card>
   </div>
 </template>
 
 <script>
-// import firebase from "firebase/compat/app";
-// import "firebase/compat/auth";
-// import "firebase/compat/firestore";
 export default {
   name: "Home",
 
   data() {
     return {
-      userDisplayName: "",
       theBestEver: "The Best Ever",
-      // isLogin: false,
     };
-  },
-
-  created() {
-    this.$store.dispatch("checkLoginStatus");
-    // this.isLogin = this.$store.state.isLogin;
-    this.userDisplayName = this.$store.state.userDisplayName;
-    // get logged in user name and display
-    // firebase.auth().onAuthStateChanged((user) => {
-    //   if (user) {
-    //     const user = firebase.auth().currentUser;
-    //     this.userDisplayName = "안녕하세요 " + user.displayName + " 고객님!";
-    //     this.theBestEver = "";
-    //     this.isLogin = true;
-    //   } else {
-    //     this.userDisplayName = "";
-    //     this.theBestEver = "The Best Ever";
-    //     this.isLogin = false;
-    //   }
-    // });
   },
 };
 </script>

@@ -99,6 +99,7 @@ export default {
             footer: "",
           });
         });
+      this.$store.dispatch("getCurrentUser");
     },
     reset() {
       this.$refs.form.reset();

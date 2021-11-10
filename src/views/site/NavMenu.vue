@@ -100,7 +100,6 @@ export default {
         title: "About",
       },
     ],
-    authMenu: ["Login", "Register"],
   }),
   methods: {
     async signOut() {
@@ -108,7 +107,7 @@ export default {
         const data = await firebase.auth().signOut();
         console.log(data);
         this.$router.push({ name: "Login" });
-        // location.reload();
+        this.$store.dispatch("getCurrentUser");
       } catch (error) {
         console.log(error);
       }

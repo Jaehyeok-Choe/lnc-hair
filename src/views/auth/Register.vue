@@ -119,11 +119,11 @@ export default {
           // set displayName when create account
           userData.user.updateProfile({ displayName: this.name });
           // save user info in firestore
-          const db = firebase.firestore();
-          db.collection("users").doc(userData.user.uid).set({
-            name: this.name,
-            email: this.email,
-          });
+          // const db = firebase.firestore();
+          // db.collection("users").doc(userData.user.uid).set({
+          //   name: this.name,
+          //   email: this.email,
+          // });
 
           Swal.fire({
             icon: "success",
@@ -133,6 +133,12 @@ export default {
             timer: 2000,
           });
           setTimeout(() => {
+            // 회원가입후 홈으로 보내졌을때 유저정보세팅 위함
+            // 위 updateProfile보다 아래 두 코드가 더 빨리 실행되므로 setTimeout 으로 이것을 제어.
+            // 아래 두 코드를 setTimeout으로 제어하지 않으면 회원가입후 홈화면으로 넘어갔을때
+            // displayName = null 의 결과가 나와 홈화면에서 유저이름이 나오지 않는다.
+            // 이 부분은 좀 더 스터디가 필요하다.
+            this.$store.dispatch("getCurrentUser");
             this.$router.push({ name: "Home" });
           }, 2200);
         })
