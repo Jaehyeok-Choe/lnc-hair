@@ -5,7 +5,6 @@
         class="black accent-4 lighten-2 py-0.5 text-center white--text"
         cols="12"
       >
-        Copyright © {{ new Date().getFullYear() }} tbeben.
         <v-btn
           v-for="link in links"
           :key="link"
@@ -24,7 +23,7 @@
 <script>
 export default {
   data: () => ({
-    links: ["Home", "About Us", "Team", "Services", "Blog", "Contact Us"],
+    links: ["Home", "About Us", "Services", "Instagram", "Blog", "Contact Us"],
   }),
 };
 </script>

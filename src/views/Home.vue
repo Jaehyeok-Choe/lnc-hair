@@ -24,9 +24,13 @@
             size="14"
           ></v-rating>
 
-          <div class="grey--text ms-4">
-            {{ userDisplayName }}{{ theBestEver }}
+          <div
+            class="grey--text ms-4"
+            v-if="this.$store.state.isLogin === true"
+          >
+            안녕하세요 {{ userDisplayName }} 고객님!
           </div>
+          <div v-else>&nbsp; {{ theBestEver }}</div>
         </v-row>
 
         <div class="my-4 text-subtitle-1">💈 • MEN's Hair & M -up</div>
@@ -37,7 +41,7 @@
           "맨즈 프리미엄 토탈살롱" 입니다 :) <br />남자들의 편안한 미용실문화를
           추구합니다 !!<br />
           자신있고 당당하게 원하시는 스타일, 컴플렉스 등의 <br />요구사항을
-          말씀해주세요 🧡
+          말씀해주세요 🧡<br />
         </div>
       </v-card-text>
       <v-card-actions>
@@ -47,7 +51,7 @@
             color="yellow"
             large
             :to="{ name: 'Login' }"
-            v-if="isLogin === false"
+            v-if="this.$store.state.isLogin === false"
           >
             <b>예약하기</b>
           </v-btn>
@@ -73,34 +77,37 @@
 </template>
 
 <script>
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/compat/firestore";
+// import firebase from "firebase/compat/app";
+// import "firebase/compat/auth";
+// import "firebase/compat/firestore";
 export default {
   name: "Home",
 
   data() {
     return {
       userDisplayName: "",
-      theBestEver: "",
-      isLogin: false,
+      theBestEver: "The Best Ever",
+      // isLogin: false,
     };
   },
 
   created() {
+    this.$store.dispatch("checkLoginStatus");
+    // this.isLogin = this.$store.state.isLogin;
+    this.userDisplayName = this.$store.state.userDisplayName;
     // get logged in user name and display
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        const user = firebase.auth().currentUser;
-        this.userDisplayName = "안녕하세요 " + user.displayName + " 고객님!";
-        this.theBestEver = "";
-        this.isLogin = true;
-      } else {
-        this.userDisplayName = "";
-        this.theBestEver = "The Best Ever";
-        this.isLogin = false;
-      }
-    });
+    // firebase.auth().onAuthStateChanged((user) => {
+    //   if (user) {
+    //     const user = firebase.auth().currentUser;
+    //     this.userDisplayName = "안녕하세요 " + user.displayName + " 고객님!";
+    //     this.theBestEver = "";
+    //     this.isLogin = true;
+    //   } else {
+    //     this.userDisplayName = "";
+    //     this.theBestEver = "The Best Ever";
+    //     this.isLogin = false;
+    //   }
+    // });
   },
 };
 </script>
