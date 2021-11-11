@@ -16,8 +16,8 @@
     <v-navigation-drawer app v-model="drawer">
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="text-h6"> Application </v-list-item-title>
-          <v-list-item-subtitle> subtext </v-list-item-subtitle>
+          <v-list-item-title class="text-h6"> L.N.C </v-list-item-title>
+          <v-list-item-subtitle> MEN's Hair & M -up </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
@@ -39,6 +39,7 @@
             v-for="child in item.items"
             :key="child.title"
             :to="child.to"
+            exact
           >
             <v-list-item-content>
               <v-list-item-title v-text="child.title"></v-list-item-title>
@@ -94,8 +95,11 @@ export default {
         action: "mdi-information",
         // active: true,
         items: [
-          { title: "About", to: "/about" },
-          { title: "Address", to: "/" },
+          { title: "예약하기", to: "/about" },
+          { title: "예약확인", to: "/about" },
+          { title: "스타일북", to: "/" },
+          { title: "연락방법", to: "/" },
+          { title: "오시는길", to: "/" },
         ],
         title: "About",
       },

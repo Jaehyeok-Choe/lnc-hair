@@ -36,12 +36,12 @@
         <div class="my-4 text-subtitle-1">💈 • MEN's Hair & M -up</div>
 
         <div>
-          남성전문 1인 헤어&메이크업샵으로 남자를 위한<br />
-          모든것들이 남성분들에게 맞추어져있는<br />
+          남성전문 1인 헤어&메이크업샵으로 <br />
           "맨즈 프리미엄 토탈살롱" 입니다 :) <br />남자들의 편안한 미용실문화를
           추구합니다 !!<br />
           자신있고 당당하게 원하시는 스타일, 컴플렉스 등의 <br />요구사항을
           말씀해주세요 🧡<br />
+          📞 070 7537 2678 / 010 6009 4610
         </div>
       </v-card-text>
       <v-card-actions>
@@ -63,13 +63,25 @@
 
       <v-card-text>
         매일 &nbsp;
-        <v-chip>10:00AM</v-chip>
+        <v-chip class="ma-2" small color="green" text-color="white"
+          >10:00AM</v-chip
+        >
         ~
-        <v-chip>20:00PM</v-chip><br /><br />
-        휴무 &nbsp; <v-chip>첫째, 둘째, 넷째주 화요일</v-chip> /
-        <v-chip>둘째주 일요일</v-chip> &nbsp; <br /><br />
+        <v-chip class="ma-2" small color="green" text-color="white"
+          >20:00PM</v-chip
+        ><br /><br />
+        휴무 &nbsp;
+        <v-chip class="ma-2" small color="red" text-color="white">
+          첫째 주, 둘째 주, 넷째 주 화요일
+        </v-chip>
+        <br />
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <v-chip class="ma-2" small color="red" text-color="white"
+          >둘째 주 일요일</v-chip
+        >
+        &nbsp; <br /><br />
         <div class="red--text">
-          ※ 셋째주 화요일은 출근합니다 / 둘째주 일요일만 휴무입니다
+          <strong> ※ 셋째 주 화요일은 출근 / 둘째 주 일요일만 휴무</strong>
         </div>
       </v-card-text>
     </v-card>
