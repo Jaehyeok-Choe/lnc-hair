@@ -45,17 +45,16 @@
         </div>
       </v-card-text>
       <v-card-actions>
-        <center>
-          <v-btn
-            class="mx-0"
-            color="yellow"
-            large
-            :to="{ name: 'Login' }"
-            v-if="this.$store.state.isLogin === false"
-          >
-            <b>예약하기</b>
-          </v-btn>
-        </center>
+        <v-btn
+          class="mx-0"
+          color="yellow"
+          large
+          :to="{ name: 'Login' }"
+          v-if="this.$store.state.isLogin === false"
+          block
+        >
+          <b>예약하기</b>
+        </v-btn>
       </v-card-actions>
       <v-divider class="mx-4"></v-divider>
 
@@ -72,7 +71,7 @@
         ><br /><br />
         휴무 &nbsp;
         <v-chip class="ma-2" small color="red" text-color="white">
-          첫째 주, 둘째 주, 넷째 주 화요일
+          첫째 주/ 둘째 주/ 넷째 주 화요일
         </v-chip>
         <br />
         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -81,7 +80,7 @@
         >
         &nbsp; <br /><br />
         <div class="red--text">
-          <strong> ※ 셋째 주 화요일은 출근 / 둘째 주 일요일만 휴무</strong>
+          ※ 셋째 주 화요일은 출근 / 둘째 주 일요일만 휴무
         </div>
       </v-card-text>
     </v-card>

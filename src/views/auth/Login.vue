@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card class="mx-auto my-12" max-width="400">
+    <v-card class="mx-auto my-2" max-width="400">
       <v-img
         class="white--text align-end"
         height="200px"
@@ -28,25 +28,46 @@
             counter
             @click:append="show1 = !show1"
           ></v-text-field>
-
-          <v-btn
-            :disabled="!valid"
-            color="success"
-            class="mr-4"
-            @click="validate"
-          >
-            login
-          </v-btn>
-
-          <v-btn color="error" class="mr-4" @click="reset"> reset </v-btn>
+          <br />
+          <center>
+            <v-btn
+              :disabled="!valid"
+              color="success"
+              class="ma-2"
+              @click="validate"
+              large
+            >
+              &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;로그인
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;
+            </v-btn>
+            <v-btn class="ma-2" color="info" large @click="googleLogin">
+              <v-icon>mdi-google</v-icon> &nbsp;구글계정으로 로그인
+            </v-btn>
+            <br />Or<br />
+            <v-btn color="black" class="ma-2 white--text" large>
+              <router-link
+                to="/register"
+                style="text-decoration: none; color: inherit"
+              >
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;회원가입 &nbsp; &nbsp;
+                &nbsp; &nbsp; &nbsp; &nbsp;</router-link
+              ></v-btn
+            >
+          </center>
+          <!-- <v-btn color="error" class="mr-4" @click="reset"> 새로고침 </v-btn> -->
           <br /><br />
 
-          <router-link to="/resetPassword">Forgot your password?</router-link>
+          <router-link to="/resetPassword">비밀번호를 잊으셨나요?</router-link>
         </v-form>
       </v-card-text>
     </v-card>
     <center>
-      <router-link to="/register">Create an account</router-link>
+      <!-- Sign In with Google -->
+      <!-- <button >
+        <v-img :src="require('../../assets/googleLogin.png')"></v-img>
+      </button> -->
     </center>
   </v-container>
 </template>
@@ -101,11 +122,25 @@ export default {
         });
       this.$store.dispatch("getCurrentUser");
     },
-    reset() {
-      this.$refs.form.reset();
-    },
+    // reset() {
+    //   this.$refs.form.reset();
+    // },
     resetValidation() {
       this.$refs.form.resetValidation();
+    },
+    googleLogin() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(() => {
+          this.$router.push({ name: "Home" });
+        })
+        .catch((err) => {
+          alert("Oops. " + err.message);
+        });
+      this.$store.dispatch("getCurrentUser");
     },
   },
 };
