@@ -95,7 +95,7 @@ export default {
         action: "mdi-information",
         // active: true,
         items: [
-          { title: "예약하기", to: "/about" },
+          { title: "예약하기", to: "/booking" },
           { title: "예약확인", to: "/about" },
           { title: "스타일북", to: "/" },
           { title: "연락방법", to: "/" },

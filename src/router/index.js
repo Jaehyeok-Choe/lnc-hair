@@ -46,6 +46,15 @@ const routes = [
         /* webpackChunkName: "resetPassword" */ "../views/auth/ResetPassword.vue"
       ),
   },
+  {
+    path: "/booking",
+    name: "Booking",
+
+    component: () =>
+      import(
+        /* webpackChunkName: "resetPassword" */ "../views/about/Booking.vue"
+      ),
+  },
 ];
 
 const router = new VueRouter({
