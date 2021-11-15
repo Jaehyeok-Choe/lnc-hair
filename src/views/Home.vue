@@ -68,19 +68,18 @@
         ~
         <v-chip class="ma-2" small color="green" text-color="white"
           >20:00PM</v-chip
-        ><br /><br />
+        ><br />
         휴무 &nbsp;
-        <v-chip class="ma-2" small color="red" text-color="white">
-          첫째 주/ 둘째 주/ 넷째 주 화요일
-        </v-chip>
-        <br />
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
         <v-chip class="ma-2" small color="red" text-color="white"
           >둘째 주 일요일</v-chip
         >
-        &nbsp; <br /><br />
+        <v-chip class="ma-2" small color="red" text-color="white">
+          첫째 주/ 둘째 주/ 넷째 주 화요일
+        </v-chip>
+
         <div class="red--text">
-          ※ 셋째 주 화요일은 출근 / 둘째 주 일요일만 휴무
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;※
+          둘째 주 일요일 휴무 / 셋째 주 화요일은 출근
         </div>
       </v-card-text>
     </v-card>

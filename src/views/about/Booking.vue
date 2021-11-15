@@ -1,30 +1,45 @@
 <template>
   <v-card class="mx-auto mt-3" max-width="344" height="97%">
     <v-card-text>
-      <p class="text-h5 text--primary text-center mb-7">예약날짜선택</p>
+      <p class="text-center">예약날짜선택</p>
       <v-row justify="space-around">
         <v-date-picker v-model="picker" color="green lighten-1"></v-date-picker>
       </v-row>
     </v-card-text>
+    <p class="text-center" style="background-color: red">
+      <font color="white"
+        ><b>예약날짜: {{ picker }}</b></font
+      >
+    </p>
+    <v-divider class="mx-4"></v-divider>
     <v-card-text class="text-center">
-      <BookingButton :selectedDate="picker"></BookingButton>
+      <p>예약시간선택</p>
+      <BookingButtons :selectedDate="picker"></BookingButtons>
     </v-card-text>
   </v-card>
-  <!-- <v-row justify="space-around">
-    <v-date-picker v-model="picker" color="green lighten-1"></v-date-picker>
-  </v-row> -->
 </template>
 
 <script>
-import BookingButton from "./BookingButton.vue";
+import BookingButtons from "./BookingButtons.vue";
 export default {
-  components: { BookingButton },
+  components: { BookingButtons },
   data() {
     return {
       picker: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
     };
+  },
+  watch: {
+    picker: function (paramSelectedDate) {
+      this.test(paramSelectedDate);
+    },
+  },
+
+  methods: {
+    test(val) {
+      alert(val);
+    },
   },
 };
 </script>
