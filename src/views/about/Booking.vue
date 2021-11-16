@@ -6,10 +6,11 @@
         <v-date-picker v-model="picker" color="green lighten-1"></v-date-picker>
       </v-row>
     </v-card-text>
-    <p class="text-center" style="background-color: red">
-      <font color="white"
-        ><b>예약날짜: {{ picker }}</b></font
-      >
+    <p class="text-center">
+      <v-chip class="ma-2" color="success" outlined>
+        <v-icon left> mdi-server-plus </v-icon>
+        예약날짜: {{ picker }}
+      </v-chip>
     </p>
     <v-divider class="mx-4"></v-divider>
     <v-card-text class="text-center">

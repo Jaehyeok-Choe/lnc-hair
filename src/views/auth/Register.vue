@@ -19,6 +19,14 @@
           ></v-text-field>
 
           <v-text-field
+            v-model="phoneNumber"
+            :counter="11"
+            :rules="phoneNumberRules"
+            label="Phone Number"
+            required
+          ></v-text-field>
+
+          <v-text-field
             v-model="email"
             :rules="emailRules"
             label="E-mail"
@@ -82,6 +90,13 @@ export default {
       (v) => !!v || "Name is required",
       (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
     ],
+    // phone number val
+    phoneNumber: null,
+    phoneNumberRules: [
+      (v) => !!v || "Phone number is required",
+      (v) => (v && v.length == 11) || "Phone number needs to be 11 digits",
+      (v) => !isNaN(v) || "Enter numbers only",
+    ],
     // email val
     email: "",
     emailRules: [
@@ -118,12 +133,30 @@ export default {
         .then((userData) => {
           // set displayName when create account
           userData.user.updateProfile({ displayName: this.name });
+
+          // timestamp for user create
+          const current = new Date();
+          const date =
+            current.getFullYear() +
+            "-" +
+            (current.getMonth() + 1) +
+            "-" +
+            current.getDate();
+          const time =
+            current.getHours() +
+            ":" +
+            current.getMinutes() +
+            ":" +
+            current.getSeconds();
+          const dateTime = date + " / " + time;
           // save user info in firestore
-          // const db = firebase.firestore();
-          // db.collection("users").doc(userData.user.uid).set({
-          //   name: this.name,
-          //   email: this.email,
-          // });
+          const db = firebase.firestore();
+          db.collection("users").doc(userData.user.uid).set({
+            name: this.name,
+            phoneNumber: this.phoneNumber,
+            email: this.email,
+            dateCreated: dateTime,
+          });
 
           Swal.fire({
             icon: "success",

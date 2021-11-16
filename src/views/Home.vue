@@ -73,8 +73,9 @@
         <v-chip class="ma-2" small color="red" text-color="white"
           >둘째 주 일요일</v-chip
         >
+        *
         <v-chip class="ma-2" small color="red" text-color="white">
-          첫째 주/ 둘째 주/ 넷째 주 화요일
+          첫/ 둘/ 넷째 주 화요일
         </v-chip>
 
         <div class="red--text">

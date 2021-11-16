@@ -5,7 +5,7 @@
       <v-btn
         v-for="i in 4"
         :key="i"
-        @click="test(selectedDate, bookingHours[i - 1])"
+        @click="confirmBooking(selectedDate, bookingHours[i - 1])"
         class="mx-auto"
         color="success"
         :disabled="disableButtons[i - 1]"
@@ -17,7 +17,7 @@
       <v-btn
         v-for="j in 4"
         :key="j"
-        @click="test(selectedDate, bookingHours[j + 3])"
+        @click="confirmBooking(selectedDate, bookingHours[j + 3])"
         class="mx-auto"
         color="success"
         :disabled="disableButtons[j + 3]"
@@ -29,7 +29,7 @@
       <v-btn
         v-for="k in 2"
         :key="k"
-        @click="test(selectedDate, bookingHours[k + 7])"
+        @click="confirmBooking(selectedDate, bookingHours[k + 7])"
         class="mr-1"
         color="success"
         :disabled="disableButtons[k + 7]"
@@ -40,6 +40,9 @@
 </template>
 
 <script>
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 import Swal from "sweetalert2";
 export default {
   props: ["selectedDate"],
@@ -61,8 +64,23 @@ export default {
       ],
     };
   },
+  created() {
+    const db = firebase.firestore();
+    db.collection("booking")
+      .where("bookingDate", "==", this.selectedDate)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          //doc.data().bookingTime;
+          console.log(doc);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
   methods: {
-    test(val, hour) {
+    confirmBooking(val, hour) {
       Swal.fire({
         title: `${val} / ${hour}:00`,
         text: "위 날짜와 시간으로 예약을 진행하시겠습니까?",
@@ -70,11 +88,31 @@ export default {
         confirmButtonText: "확인",
         denyButtonText: `취소`,
       }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
+          // 예약정보 저장하는 메소드 호출
+          this.saveBookingInfo(val, hour);
           Swal.fire("예약완료", "", "success");
         }
       });
+    },
+    async saveBookingInfo(val, hour) {
+      const db = firebase.firestore();
+      await db
+        .collection("booking")
+        .doc()
+        .set({
+          bookingDate: val,
+          bookingTime: hour,
+          name: this.$store.state.userDisplayName,
+          phoneNumber: "01089117370",
+          uid: this.$store.state.uid,
+        })
+        .then((docRef) => {
+          console.log(docRef);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
   watch: {},
