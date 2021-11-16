@@ -32,15 +32,15 @@ export default {
     };
   },
   watch: {
-    picker: function (paramSelectedDate) {
-      this.test(paramSelectedDate);
-    },
+    // picker: function (paramSelectedDate) {
+    //   this.test(paramSelectedDate);
+    // },
   },
 
   methods: {
-    test(val) {
-      alert(val);
-    },
+    // test(val) {
+    //   alert(val);
+    // },
   },
 };
 </script>
