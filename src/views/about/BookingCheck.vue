@@ -13,10 +13,6 @@
               <v-card-subtitle
                 >방문시간: {{ bookingTime[i - 1] }}:00</v-card-subtitle
               >
-
-              <v-card-actions>
-                <v-btn text> Edit button </v-btn>
-              </v-card-actions>
             </v-card>
           </v-col>
         </v-row>
@@ -36,6 +32,7 @@ export default {
     const db = firebase.firestore();
     db.collection("booking")
       .where("uid", "==", user.uid)
+      .orderBy("createdDate", "desc")
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {

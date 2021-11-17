@@ -72,9 +72,9 @@ export default {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          this.showButtons = true;
           this.disableButtons[doc.data().bookingTime - 10] = true;
         });
+        this.showButtons = true;
       })
       .catch((error) => {
         console.log(error);
@@ -126,6 +126,7 @@ export default {
           name: this.$store.state.userDisplayName,
           phoneNumber: "01089117370",
           uid: this.$store.state.uid,
+          createdDate: this.getCurrentDate(),
         })
         .then((docRef) => {
           console.log(docRef);
@@ -134,30 +135,45 @@ export default {
           console.log(error);
         });
     },
+    getCurrentDate() {
+      const current = new Date();
+      const date = `${current.getFullYear()}${
+        current.getMonth() + 1
+      }${current.getDate()}`;
+      return date;
+    },
   },
   watch: {
     // Booking.vue의 캘린더에서 날짜 변경이 감지되는 순간 아래 코드 실행
     // selectedDate은 넘겨받은 props(picker)이다
     selectedDate: function (paramSelectedDate) {
-      // 다른 날짜 선택될 때 이전 변경된 값 초기화
-      this.showButtons = false;
-      for (let i = 0; i < 10; i++) {
-        this.disableButtons[i] = false;
-      }
-      // 아래 코드는 선택된 날짜에 이미 예약된 시간 버튼(들) disable 시킨다
-      const db = firebase.firestore();
-      db.collection("booking")
-        .where("bookingDate", "==", paramSelectedDate)
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            this.disableButtons[parseInt(doc.data().bookingTime - 10)] = true;
+      const tempSelectedDate = paramSelectedDate.split("-");
+      const splitedSelectedDate =
+        tempSelectedDate[0] + tempSelectedDate[1] + tempSelectedDate[2];
+      // 캘린더에서 오늘 날짜 이전의 날을 클릭할 시 예약시간선택버튼 안보이도록
+      if (parseInt(splitedSelectedDate) < this.getCurrentDate()) {
+        this.showButtons = false;
+      } else {
+        // 다른 날짜 선택될 때 이전 변경된 값 초기화
+        this.showButtons = false;
+        for (let i = 0; i < 10; i++) {
+          this.disableButtons[i] = false;
+        }
+        // 아래 코드는 선택된 날짜에 이미 예약된 시간 버튼(들) disable 시킨다
+        const db = firebase.firestore();
+        db.collection("booking")
+          .where("bookingDate", "==", paramSelectedDate)
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              this.disableButtons[parseInt(doc.data().bookingTime - 10)] = true;
+            });
+            this.showButtons = true;
+          })
+          .catch((error) => {
+            console.log(error);
           });
-          this.showButtons = true;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      }
     },
   },
 };
