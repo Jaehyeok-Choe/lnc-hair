@@ -83,8 +83,16 @@ export default {
   methods: {
     confirmBooking(val, hour) {
       Swal.fire({
-        title: `${val} / ${hour}:00`,
-        text: "위 날짜와 시간으로 예약을 진행하시겠습니까?",
+        title: "예약확인",
+        // text: `예약날짜: ${val}  예약시간: ${hour}:00`,
+
+        html:
+          "방문날짜: <b>" +
+          val +
+          "</b><br>방문시간: <b>" +
+          hour +
+          ":00</b>" +
+          "<br><br><p style='color:red; font-size:15px;'>확인 버튼을 누르시면 예약이 완료됩니다.</p>",
         showDenyButton: true,
         confirmButtonText: "확인",
         denyButtonText: `취소`,
@@ -92,7 +100,18 @@ export default {
         if (result.isConfirmed) {
           // 예약정보 저장하는 메소드 호출
           this.saveBookingInfo(val, hour);
-          Swal.fire("예약완료", "", "success");
+
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "예약완료",
+            showConfirmButton: false,
+            timer: 1300,
+          });
+
+          setTimeout(() => {
+            location.reload();
+          }, 1300);
         }
       });
     },
@@ -125,7 +144,6 @@ export default {
       for (let i = 0; i < 10; i++) {
         this.disableButtons[i] = false;
       }
-
       // 아래 코드는 선택된 날짜에 이미 예약된 시간 버튼(들) disable 시킨다
       const db = firebase.firestore();
       db.collection("booking")
@@ -133,9 +151,9 @@ export default {
         .get()
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
-            this.showButtons = true;
             this.disableButtons[parseInt(doc.data().bookingTime - 10)] = true;
           });
+          this.showButtons = true;
         })
         .catch((error) => {
           console.log(error);

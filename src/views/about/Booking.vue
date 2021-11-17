@@ -1,9 +1,14 @@
 <template>
-  <v-card class="mx-auto mt-3" max-width="344" height="97%">
+  <v-card class="mx-auto" max-width="374" height="100%">
     <v-card-text>
       <p class="text-center">예약날짜선택</p>
       <v-row justify="space-around">
-        <v-date-picker v-model="picker" color="green lighten-1"></v-date-picker>
+        <v-date-picker
+          v-model="picker"
+          color="green lighten-1"
+          locale="ko-KR"
+          full-width
+        ></v-date-picker>
       </v-row>
     </v-card-text>
     <p class="text-center">

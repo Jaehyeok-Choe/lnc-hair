@@ -96,7 +96,7 @@ export default {
         // active: true,
         items: [
           { title: "예약하기", to: "/booking" },
-          { title: "예약확인", to: "/about" },
+          { title: "예약확인", to: "/bookingCheck" },
           { title: "스타일북", to: "/" },
           { title: "연락방법", to: "/" },
           { title: "오시는길", to: "/" },

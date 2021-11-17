@@ -51,8 +51,15 @@ const routes = [
     name: "Booking",
 
     component: () =>
+      import(/* webpackChunkName: "booking" */ "../views/about/Booking.vue"),
+  },
+  {
+    path: "/bookingCheck",
+    name: "BookingCheck",
+
+    component: () =>
       import(
-        /* webpackChunkName: "resetPassword" */ "../views/about/Booking.vue"
+        /* webpackChunkName: "bookingCheck" */ "../views/about/BookingCheck.vue"
       ),
   },
 ];
@@ -72,7 +79,10 @@ router.beforeEach((to, from, next) => {
     (isAuthenticated && to.name === "ResetPassword")
   ) {
     next("/");
-  } else if (!isAuthenticated && to.name === "About") {
+  } else if (
+    (!isAuthenticated && to.name === "Booking") ||
+    (!isAuthenticated && to.name === "BookingCheck")
+  ) {
     next("/login");
   } else {
     next();
