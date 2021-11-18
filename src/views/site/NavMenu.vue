@@ -92,7 +92,7 @@ export default {
         title: "Home",
       },
       {
-        action: "mdi-information",
+        action: "mdi-web",
         // active: true,
         items: [
           { title: "예약하기", to: "/booking" },

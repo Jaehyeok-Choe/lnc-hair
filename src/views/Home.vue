@@ -7,7 +7,24 @@
         indeterminate
       ></v-progress-linear>
     </template>
-    <v-img height="250" :src="require('../assets/LNC-designer.png')"></v-img>
+
+    <!-- <v-img height="250" :src="require('../assets/LNC-designer.png')"></v-img> -->
+    <v-carousel
+      cycle
+      height="250"
+      hide-delimiter-background
+      show-arrows-on-hover
+    >
+      <v-carousel-item
+        v-for="(item, i) in items"
+        :key="i"
+        :src="item.src"
+        reverse-transition="fade-transition"
+        transition="fade-transition"
+      >
+      </v-carousel-item>
+    </v-carousel>
+
     <v-card-title>L.N.C</v-card-title>
     <v-card-text>
       <v-row align="center" class="mx-0">
@@ -31,10 +48,17 @@
         추구합니다 !!<br />
         자신있고 당당하게 원하시는 스타일, 컴플렉스 등의 <br />요구사항을
         말씀해주세요 🧡<br />
-        <v-chip class="ma-2" small color="pink" label text-color="white">
+        <v-chip class="mt-2 mb-1" small color="pink" label text-color="white">
           <v-icon left small> mdi-phone </v-icon>
-          010-6009-4610 / 070-7537-2678
-        </v-chip>
+          010-6009-4610 / 070-7537-2678 </v-chip
+        ><br />
+        <v-chip class="mb-1 mr-1" small color="black" label text-color="white"
+          >도로명</v-chip
+        >
+        울산 남구 달삼로75번길 11 2층<br />
+        <v-chip class="mr-5" small color="black" label text-color="white"
+          >지번</v-chip
+        >울산 남구 삼산동 1476-12 2층 44719
       </div>
     </v-card-text>
     <v-card-actions>
@@ -48,14 +72,23 @@
       >
         <b>예약하기</b>
       </v-btn>
+      <v-btn
+        class="mx-0"
+        color="yellow"
+        large
+        :to="{ name: 'Booking' }"
+        v-else
+        block
+        ><b>예약하기</b></v-btn
+      >
     </v-card-actions>
     <v-divider class="mx-4"></v-divider>
     <v-card-title>Opening Hours</v-card-title>
     <v-card-text>
       매일 &nbsp;
-      <v-chip class="ma-2" small color="success" outlined> 10:00AM </v-chip>
+      <v-chip class="ma-2" color="success" outlined> 10:00AM </v-chip>
       ~
-      <v-chip class="ma-2" small color="success" outlined> 20:00PM</v-chip>
+      <v-chip class="ma-2" color="success" outlined> 20:00PM</v-chip>
       <br />
       휴무 &nbsp;
       <v-chip class="ma-2" small color="red" outlined> 둘째 주 일요일</v-chip>
@@ -78,6 +111,20 @@ export default {
   data() {
     return {
       theBestEver: "The Best Ever",
+      items: [
+        {
+          src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+        },
+        {
+          src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg",
+        },
+        {
+          src: "https://cdn.vuetifyjs.com/images/carousel/bird.jpg",
+        },
+        {
+          src: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
+        },
+      ],
     };
   },
 };

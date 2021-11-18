@@ -1,30 +1,31 @@
 <template>
   <v-footer color="black" padless>
-    <v-row justify="center" no-gutters>
-      <v-col
-        class="black accent-4 lighten-2 py-0.5 text-center white--text"
-        cols="12"
-      >
-        <v-btn
-          v-for="link in links"
-          :key="link"
-          color="white"
-          text
-          rounded
-          class="my-2"
-        >
-          {{ link }}
+    <v-col class="white--text" cols="12">
+      <p style="font-size: 7px">
+        Copyright © {{ new Date().getFullYear() }} Jaehyeok Choe. All rights
+        reserved.
+      </p>
+      <center>
+        <v-btn color="black" :to="{ name: 'Home' }">
+          <v-icon size="25px" color="white"> mdi-home </v-icon>
         </v-btn>
-      </v-col>
-    </v-row>
+        <v-btn color="black" :to="{ name: 'Map' }">
+          <v-icon size="25px" color="white">mdi-map </v-icon>
+        </v-btn>
+        <v-btn color="black" :to="{ name: 'Contact' }">
+          <v-icon size="25px" color="white"> mdi-phone </v-icon>
+        </v-btn>
+        <v-btn color="black" href="https://www.instagram.com/_nikka.lnc/">
+          <v-icon size="25px" color="white"> mdi-instagram </v-icon>
+        </v-btn>
+      </center>
+    </v-col>
   </v-footer>
 </template>
 
 <script>
 export default {
-  data: () => ({
-    links: ["Home", "About Us", "Services", "Instagram", "Blog", "Contact Us"],
-  }),
+  data: () => ({}),
 };
 </script>
 <style></style>

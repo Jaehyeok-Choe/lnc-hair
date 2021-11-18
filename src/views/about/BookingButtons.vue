@@ -84,8 +84,6 @@ export default {
     confirmBooking(val, hour) {
       Swal.fire({
         title: "예약확인",
-        // text: `예약날짜: ${val}  예약시간: ${hour}:00`,
-
         html:
           "방문날짜: <b>" +
           val +
@@ -110,11 +108,12 @@ export default {
           });
 
           setTimeout(() => {
-            location.reload();
+            this.$router.push({ name: "BookingCheck" });
           }, 1300);
         }
       });
     },
+    // 예약정보 저장 메소드
     async saveBookingInfo(val, hour) {
       const db = firebase.firestore();
       await db
