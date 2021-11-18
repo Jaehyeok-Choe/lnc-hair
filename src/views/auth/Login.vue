@@ -6,14 +6,14 @@
         height="200px"
         src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
       >
-        <v-card-title>Login</v-card-title>
+        <v-card-title>로그인</v-card-title>
       </v-img>
       <v-card-text>
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field
             v-model="email"
             :rules="emailRules"
-            label="E-mail"
+            label="이메일"
             required
           ></v-text-field>
 
@@ -23,7 +23,7 @@
             :rules="[rules.required, rules.min]"
             :type="show1 ? 'text' : 'password'"
             name="input-10-1"
-            label="Password"
+            label="비밀번호"
             hint="At least 8 characters"
             counter
             @click:append="show1 = !show1"
@@ -56,19 +56,13 @@
               ></v-btn
             >
           </center>
-          <!-- <v-btn color="error" class="mr-4" @click="reset"> 새로고침 </v-btn> -->
           <br /><br />
 
           <router-link to="/resetPassword">비밀번호를 잊으셨나요?</router-link>
         </v-form>
       </v-card-text>
     </v-card>
-    <center>
-      <!-- Sign In with Google -->
-      <!-- <button >
-        <v-img :src="require('../../assets/googleLogin.png')"></v-img>
-      </button> -->
-    </center>
+    <center></center>
   </v-container>
 </template>
 

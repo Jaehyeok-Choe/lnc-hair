@@ -6,16 +6,16 @@
         height="200px"
         src="https://cdn.vuetifyjs.com/images/cards/road.jpg"
       >
-        <v-card-title>Reset your password</v-card-title>
+        <v-card-title>비밀번호 재설정</v-card-title>
       </v-img>
       <v-card-text>
-        Enter your email address and we'll email <br />you instructions on how
-        to reset your password
+        가입하신 이메일 주소를 입력하면 비밀번호 재설정 방법에 대한 지침을 해당
+        이메일로 보내드립니다.
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field
             v-model="email"
             :rules="emailRules"
-            label="E-mail"
+            label="이메일"
             required
           ></v-text-field>
 
@@ -24,10 +24,10 @@
             color="success"
             class="mr-4"
             @click="validate"
-            >Send</v-btn
+            >요청</v-btn
           >
           <br /><br />
-          <router-link to="/login">Log in</router-link> with your credentials
+          <router-link to="/login">로그인 화면으로</router-link>
         </v-form>
       </v-card-text>
     </v-card>

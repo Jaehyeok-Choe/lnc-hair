@@ -8,20 +8,19 @@
       ></v-progress-linear>
     </template>
 
-    <!-- <v-img height="250" :src="require('../assets/LNC-designer.png')"></v-img> -->
     <v-carousel
       cycle
-      height="250"
+      height="240"
       hide-delimiter-background
       show-arrows-on-hover
     >
       <v-carousel-item
         v-for="(item, i) in items"
         :key="i"
-        :src="item.src"
         reverse-transition="fade-transition"
         transition="fade-transition"
       >
+        <v-img height="240" :src="item.src"></v-img>
       </v-carousel-item>
     </v-carousel>
 
@@ -113,16 +112,25 @@ export default {
       theBestEver: "The Best Ever",
       items: [
         {
-          src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+          src: require("../assets/LNC-designer.png"),
         },
         {
-          src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg",
+          src: require("../assets/lnc-interior.jpeg"),
         },
         {
-          src: "https://cdn.vuetifyjs.com/images/carousel/bird.jpg",
+          src: require("../assets/lnc-interior3.jpeg"),
         },
         {
-          src: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
+          src: require("../assets/lnc-interior4.jpeg"),
+        },
+        {
+          src: require("../assets/lnc-interior2.jpeg"),
+        },
+        {
+          src: require("../assets/lnc-interior5.jpeg"),
+        },
+        {
+          src: require("../assets/lnc-interior6.jpeg"),
         },
       ],
     };

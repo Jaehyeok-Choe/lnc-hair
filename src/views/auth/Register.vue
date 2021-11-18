@@ -6,7 +6,7 @@
         height="200px"
         src="https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg"
       >
-        <v-card-title>Create your Account</v-card-title>
+        <v-card-title>회원가입</v-card-title>
       </v-img>
       <v-card-text>
         <v-form ref="form" v-model="valid" lazy-validation>
@@ -14,7 +14,7 @@
             v-model="name"
             :counter="10"
             :rules="nameRules"
-            label="Name"
+            label="이름"
             required
           ></v-text-field>
 
@@ -22,14 +22,14 @@
             v-model="phoneNumber"
             :counter="11"
             :rules="phoneNumberRules"
-            label="Phone Number"
+            label="휴대전화"
             required
           ></v-text-field>
 
           <v-text-field
             v-model="email"
             :rules="emailRules"
-            label="E-mail"
+            label="이메일"
             required
             ref="email"
           ></v-text-field>
@@ -40,7 +40,7 @@
             :rules="[rules.required, rules.min]"
             :type="show1 ? 'text' : 'password'"
             name="input-10-1"
-            label="Password"
+            label="비밀번호"
             hint="At least 8 characters"
             counter
             @click:append="show1 = !show1"
@@ -52,7 +52,7 @@
             :rules="passwordRules"
             :type="show2 ? 'text' : 'password'"
             name="input-10-1"
-            label="Confirm Password"
+            label="비밀번호 확인"
             hint="At least 8 characters"
             counter
             @click:append="show2 = !show2"
@@ -63,11 +63,11 @@
             class="mr-4"
             @click="validate"
           >
-            Sign up
+            가입하기
           </v-btn>
-          <v-btn color="error" class="mr-4" @click="reset"> reset </v-btn>
+          <v-btn color="error" class="mr-4" @click="reset"> 다시작성 </v-btn>
           <br /><br />
-          <router-link to="/login">Log in</router-link> with your credentials
+          <router-link to="/login">로그인 화면으로</router-link>
         </v-form>
       </v-card-text>
     </v-card>
