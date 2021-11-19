@@ -12,7 +12,7 @@
         <v-btn color="black" :to="{ name: 'Map' }">
           <v-icon size="25px" color="white">mdi-map </v-icon>
         </v-btn>
-        <v-btn color="black" :to="{ name: 'Contact' }">
+        <v-btn color="black" :to="{ name: 'ContactUs' }">
           <v-icon size="25px" color="white"> mdi-phone </v-icon>
         </v-btn>
         <v-btn color="black" href="https://www.instagram.com/_nikka.lnc/">

@@ -5,9 +5,9 @@
       <v-btn
         v-for="i in 4"
         :key="i"
-        class="mx-auto"
+        class="mx-auto white--text"
         @click="confirmBooking(selectedDate, bookingHours[i - 1])"
-        color="success"
+        :color="buttonColor"
         :disabled="disableButtons[i - 1]"
         >{{ bookingHours[i - 1] }}:00</v-btn
       >
@@ -18,8 +18,8 @@
         v-for="j in 4"
         :key="j"
         @click="confirmBooking(selectedDate, bookingHours[j + 3])"
-        class="mx-auto"
-        color="success"
+        class="mx-auto white--text"
+        :color="buttonColor"
         :disabled="disableButtons[j + 3]"
         >{{ bookingHours[j + 3] }}:00</v-btn
       >
@@ -30,13 +30,14 @@
         v-for="k in 2"
         :key="k"
         @click="confirmBooking(selectedDate, bookingHours[k + 7])"
-        class="mr-1"
-        color="success"
+        class="mr-1 white--text"
+        :color="buttonColor"
         :disabled="disableButtons[k + 7]"
         >{{ bookingHours[k + 7] }}:00</v-btn
       >
     </v-row>
   </v-container>
+  <v-container v-else><center>예약이 불가능한 날짜입니다.</center></v-container>
 </template>
 
 <script>
@@ -45,7 +46,7 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import Swal from "sweetalert2";
 export default {
-  props: ["selectedDate"],
+  props: ["selectedDate", "buttonColor"],
   data() {
     return {
       showButtons: false,

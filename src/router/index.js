@@ -53,6 +53,14 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "booking" */ "../views/about/Booking.vue"),
   },
+  //booking2는 옵션이다. booking 과 booking중 원하는 스타일로 진행
+  {
+    path: "/booking2",
+    name: "Booking2",
+
+    component: () =>
+      import(/* webpackChunkName: "booking2" */ "../views/about/Booking2.vue"),
+  },
   {
     path: "/bookingCheck",
     name: "BookingCheck",
@@ -60,6 +68,40 @@ const routes = [
     component: () =>
       import(
         /* webpackChunkName: "bookingCheck" */ "../views/about/BookingCheck.vue"
+      ),
+  },
+  {
+    path: "/bookingCheckAdmin",
+    name: "BookingCheckAdmin",
+
+    component: () =>
+      import(
+        /* webpackChunkName: "bookingCheckAdmin" */ "../views/about/bookingAdmin/BookingCheckAdmin.vue"
+      ),
+  },
+  {
+    path: "/map",
+    name: "Map",
+
+    component: () =>
+      import(/* webpackChunkName: "map" */ "../views/about//Map.vue"),
+  },
+  {
+    path: "/contactUs",
+    name: "ContactUs",
+
+    component: () =>
+      import(
+        /* webpackChunkName: "contactUs" */ "../views/about//ContactUs.vue"
+      ),
+  },
+  {
+    path: "/styleBook",
+    name: "StyleBook",
+
+    component: () =>
+      import(
+        /* webpackChunkName: "styleBook" */ "../views/about//StyleBook.vue"
       ),
   },
 ];

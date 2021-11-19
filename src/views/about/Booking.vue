@@ -22,7 +22,10 @@
     <v-divider class="mx-4"></v-divider>
     <v-card-text class="text-center">
       <p><strong>예약시간선택</strong></p>
-      <BookingButtons :selectedDate="picker"></BookingButtons>
+      <BookingButtons
+        :selectedDate="picker"
+        :buttonColor="buttonColor"
+      ></BookingButtons>
     </v-card-text>
     <v-divider class="mx-4"></v-divider>
     <v-card-text class="text-center">
@@ -43,6 +46,7 @@ export default {
       picker: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
+      buttonColor: "success",
     };
   },
   watch: {

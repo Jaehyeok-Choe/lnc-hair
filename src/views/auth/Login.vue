@@ -62,7 +62,6 @@
         </v-form>
       </v-card-text>
     </v-card>
-    <center></center>
   </v-container>
 </template>
 

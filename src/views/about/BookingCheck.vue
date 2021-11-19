@@ -1,5 +1,10 @@
 <template>
-  <div>
+  <!-- 관리자 권한일때 -->
+  <div v-if="adminCheck === 'tbeben77@gmail.com'">
+    <BookingCheckAdmin></BookingCheckAdmin>
+  </div>
+  <!-- 일반유저 권한일때 -->
+  <div v-else>
     <v-card-title class="justify-center"> 📍 예약내역</v-card-title>
     <v-card max-width="400" class="mx-auto" v-if="showBookingHistory">
       <v-container v-for="i in count" :key="i">
@@ -34,7 +39,9 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import Swal from "sweetalert2";
+import BookingCheckAdmin from "../about/bookingAdmin/BookingCheckAdmin";
 export default {
+  components: { BookingCheckAdmin },
   created() {
     const user = firebase.auth().currentUser;
     const db = firebase.firestore();
@@ -64,6 +71,9 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+    // 현재 로그인된 유저의 이메일을 관리자 권한 제어를 위해 adminCheck 변수에 담는다.
+    // 관리자일때 BookingCheckAdmin.vue 페이지로, 일반유저일때는 해당페이지를 보여주기 위함.
+    this.adminCheck = user.email;
   },
   data() {
     return {
@@ -73,6 +83,7 @@ export default {
       buttonColor: [],
       count: 0,
       showBookingHistory: false,
+      adminCheck: "",
     };
   },
   methods: {
