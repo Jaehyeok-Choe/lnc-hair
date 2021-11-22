@@ -13,26 +13,26 @@ Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAoVp7K77yr-D3319ryru0hSyJ1Wz0a0tI",
-  authDomain: "vuefs-prod-5ecb9.firebaseapp.com",
-  projectId: "vuefs-prod-5ecb9",
-  storageBucket: "vuefs-prod-5ecb9.appspot.com",
-  messagingSenderId: "439471976083",
-  appId: "1:439471976083:web:0731b8ecd55c7786c42766",
+  apiKey: "AIzaSyDNhdzJwbD50uxFg2otF0NEcF5FMBxqQJk",
+  authDomain: "lnc-hair.firebaseapp.com",
+  projectId: "lnc-hair",
+  storageBucket: "lnc-hair.appspot.com",
+  messagingSenderId: "289917646549",
+  appId: "1:289917646549:web:d90c870af3963ee6ca145c",
+  measurementId: "G-46091H3QH9",
 };
 firebase.initializeApp(firebaseConfig).firestore;
 
 let app;
 
 firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    if (!app) {
-      app = new Vue({
-        router,
-        store,
-        vuetify,
-        render: (h) => h(App),
-      }).$mount("#app");
-    }
+  console.log(user);
+  if (!app) {
+    app = new Vue({
+      router,
+      store,
+      vuetify,
+      render: (h) => h(App),
+    }).$mount("#app");
   }
 });

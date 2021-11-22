@@ -5,7 +5,7 @@
   </div>
   <!-- 일반유저 권한일때 -->
   <div v-else>
-    <v-card-title class="justify-center"> 📍 예약내역</v-card-title>
+    <v-card-title class="justify-center"> 📍 MY예약내역</v-card-title>
     <v-card max-width="400" class="mx-auto" v-if="showBookingHistory">
       <v-container v-for="i in count" :key="i">
         <v-row dense>

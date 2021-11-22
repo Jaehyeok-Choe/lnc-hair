@@ -13,7 +13,7 @@ export default new Vuex.Store({
     uid: "",
     userDisplayName: "",
     email: "",
-    phoneNumber: null,
+    phoneNumber: "",
   },
   mutations: {
     setUserLoginOn(state) {
@@ -30,6 +30,9 @@ export default new Vuex.Store({
     emptyUserProfile(state) {
       state.userDisplayName = "";
     },
+    setUserPhoneNumber(state, payload) {
+      state.phoneNumber = payload.phoneNumber;
+    },
   },
   actions: {
     async getCurrentUser({ commit }) {
@@ -43,6 +46,23 @@ export default new Vuex.Store({
           commit("setUserLoginOff");
         }
       });
+    },
+    getUserPhoneNumber({ commit }) {
+      const user = firebase.auth().currentUser;
+      const db = firebase.firestore();
+
+      db.collection("users")
+        .where("email", "==", user.email)
+        .get()
+        .then((doc) => {
+          doc.forEach((doc) => {
+            console.log(doc);
+            commit("setUserPhoneNumber", doc.data());
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
   modules: {},

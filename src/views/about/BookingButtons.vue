@@ -80,6 +80,8 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+    // 유저 전화번호 가져오는 코드
+    this.$store.dispatch("getUserPhoneNumber");
   },
   methods: {
     confirmBooking(val, hour) {
@@ -124,7 +126,7 @@ export default {
           bookingDate: val,
           bookingTime: hour,
           name: this.$store.state.userDisplayName,
-          phoneNumber: "01089117370",
+          phoneNumber: this.$store.state.phoneNumber,
           uid: this.$store.state.uid,
           createdDate: this.getCurrentDate(),
         })
