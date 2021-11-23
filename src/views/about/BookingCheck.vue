@@ -111,7 +111,8 @@ export default {
               showCancelButton: true,
               confirmButtonColor: "#3085d6",
               cancelButtonColor: "#d33",
-              confirmButtonText: "Yes",
+              confirmButtonText: "이 예약 취소하기",
+              cancelButtonText: "취소하지 않기",
             }).then((result) => {
               if (result.isConfirmed) {
                 doc.ref.delete();

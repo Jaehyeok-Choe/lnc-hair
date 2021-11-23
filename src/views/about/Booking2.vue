@@ -62,7 +62,7 @@
           </v-chip>
         </p>
         <v-btn color="success" :to="{ name: 'BookingCheck' }" block
-          >나의예약보기</v-btn
+          >예약보기</v-btn
         >
       </v-card-text>
     </v-card>

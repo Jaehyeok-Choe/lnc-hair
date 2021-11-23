@@ -1,9 +1,18 @@
 <template>
-  <div><h1>Map</h1></div>
+  <div id="app">
+    <KakaoMap />
+  </div>
 </template>
 
 <script>
-export default {};
+import KakaoMap from "@/components/KakaoMap";
+
+export default {
+  name: "App",
+  components: {
+    KakaoMap,
+  },
+};
 </script>
 
 <style></style>
