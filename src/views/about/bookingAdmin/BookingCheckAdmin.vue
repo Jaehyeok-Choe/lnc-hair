@@ -1,5 +1,12 @@
 <template>
-  <v-card class="mx-auto" max-width="374" height="100%">
+  <v-card
+    class="mx-auto"
+    max-width="374"
+    height="100%"
+    elevation="24"
+    outlined
+    shaped
+  >
     <v-card-text>
       <v-row justify="space-around">
         <v-date-picker

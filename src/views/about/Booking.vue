@@ -1,5 +1,12 @@
 <template>
-  <v-card class="mx-auto" max-width="374" height="100%">
+  <v-card
+    class="mx-auto"
+    max-width="374"
+    height="100%"
+    elevation="24"
+    outlined
+    shaped
+  >
     <v-card-text>
       <p class="text-center">
         <strong>예약날짜선택</strong>

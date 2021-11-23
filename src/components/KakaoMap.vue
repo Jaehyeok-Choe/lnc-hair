@@ -1,64 +1,66 @@
 <template>
-  <v-card class="mx-auto my-12" max-width="374">
-    <template slot="progress">
-      <v-progress-linear
-        color="deep-purple"
-        height="10"
-        indeterminate
-      ></v-progress-linear>
-    </template>
-
-    <div>
-      <div id="map"></div>
-      <div class="mt-3 ml-3">
-        <v-btn @click="displayMarker(markerPositions1)" color="black" dark
-          >위치보기</v-btn
-        >
-        <v-btn @click="displayInfoWindow" color="black" dark>도로명</v-btn>
-      </div>
-    </div>
-
-    <v-card-title>💈 L.N.C - MEN's Hair & M-up</v-card-title>
-
-    <v-card-text>
-      <v-row align="center" class="mx-0">
-        <v-rating
-          :value="5"
-          color="amber"
-          dense
-          half-increments
-          readonly
-          size="14"
-        ></v-rating>
-
-        <div class="grey--text ms-4">The Best Ever</div>
-      </v-row>
-
-      <div class="my-4 text-subtitle-1">울산광역시 남구</div>
+  <v-container>
+    <v-card class="mx-auto my-2" max-width="400" elevation="24" outlined shaped>
+      <template slot="progress">
+        <v-progress-linear
+          color="deep-purple"
+          height="10"
+          indeterminate
+        ></v-progress-linear>
+      </template>
 
       <div>
-        도로명: 울산광역시 남구 달삼로75번길 11 2층 <br />
-        지번: 울산광역시 남구 삼산동 1476-12 2층 <br /><br />
-        전화: 010-6009-4610 / 070-7537-2678
+        <div id="map"></div>
+        <div class="mt-3 ml-3">
+          <v-btn @click="displayMarker(markerPositions1)" color="black" dark
+            >위치보기</v-btn
+          >
+          <v-btn @click="displayInfoWindow" color="black" dark>도로명</v-btn>
+        </div>
       </div>
-    </v-card-text>
 
-    <v-divider class="mx-4"></v-divider>
+      <v-card-title>💈 L.N.C - MEN's Hair & M-up</v-card-title>
 
-    <v-card-title>PRICE LIST</v-card-title>
+      <v-card-text>
+        <v-row align="center" class="mx-0">
+          <v-rating
+            :value="5"
+            color="amber"
+            dense
+            half-increments
+            readonly
+            size="14"
+          ></v-rating>
 
-    <v-card-text>
-      <v-btn @click="showPriceList" color="yellow" block
-        ><b>가격표보기</b></v-btn
-      >
-    </v-card-text>
+          <div class="grey--text ms-4">The Best Ever</div>
+        </v-row>
 
-    <v-card-actions>
-      <v-btn color="deep-purple lighten-2" text :to="{ name: 'Booking' }">
-        예약하기
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+        <div class="my-4 text-subtitle-1">울산광역시 남구</div>
+
+        <div>
+          도로명: 울산광역시 남구 달삼로75번길 11 2층 <br />
+          지번: 울산광역시 남구 삼산동 1476-12 2층 <br /><br />
+          전화: 010-6009-4610 / 070-7537-2678
+        </div>
+      </v-card-text>
+
+      <v-divider class="mx-4"></v-divider>
+
+      <v-card-title>PRICE LIST</v-card-title>
+
+      <v-card-text>
+        <v-btn @click="showPriceList" color="yellow" block
+          ><b>가격표보기</b></v-btn
+        >
+      </v-card-text>
+
+      <v-card-actions>
+        <v-btn color="deep-purple lighten-2" text :to="{ name: 'Booking' }">
+          예약하기
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -89,43 +91,33 @@ export default {
     showPriceList() {
       Swal.fire({
         title: "PRICE LIST",
-        html: `<table style="width:100%">
-  <tr>
-    <th>CUT</th>
-    <th>PERM</th>
-    <th>COLOR</th>
-  </tr>
-  <tr>
-    <td>맨즈컷 25,000</td>
-    <td>다운펌(부분) 20,000</td>
-    <td>컷 포함 77,000</td>
-  </tr>
-  <tr>
-    <td>쥬니어컷 25,000</td>
-    <td>다운펌(전체) 50,000</td>
-    <td>컷 미포함 55,000</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>콜드펌 90,000</td>
-    <td></td>
-  </tr>
+        html: `<style>  
+.mytable { border-collapse:collapse; font-weight: bold; }  
+.mytable th, .mytable td { border:1px solid black; }
+</style>
+<font size="2">
+  <table class="mytable" style="width:100%" >
     <tr>
-    <td></td>
-    <td>아이롱펌 130,000</td>
-    <td></td>
-  </tr>
+      <th style="background-color:grey"><font color="white">CUT</font></th>
+      <th style="background-color:black"><font color="white">PERM</font></th>
+    
+    </tr>
     <tr>
-    <td></td>
-    <td>매직 110,000</td>
-    <td></td>
-  </tr>
+      <td><br>맨즈컷 25,000<br><br>쥬니어컷 25,000</td>
+      <td><br>다운펌(부분) 20,000<br><br>다운펌(전체) 50,000<br><br>콜드펌 90,000<br><br>아이롱펌 130,000<br><br>매직 110,000<br><br>컷트시 1만원 할인<br>&nbsp;</td>
+    </tr>
     <tr>
-    <td></td>
-    <td>컷트시 1만원 할인</td>
-    <td></td>
-  </tr>
-</table>`,
+      <th style="background-color:black"><font color="white">CLINIC</font></th>
+      <th style="background-color:grey"><font color="white">COLOR & ECT.</font></th>
+    
+    </tr>
+    <tr>
+      <td><br>헤드스파 <br>55,000<br><br>스파컷 <br>65,000<br><br>엠플 크리닉 <br>30,000<br><br>풀케어 크리닉<br> 70,000<br>&nbsp;</td>
+      <td>컬러 (컷 포함) <br>77,000<br><br>컬러 (컷 미포함) <br>55,000<br><br>샴푸<br>11,000<br><br>드라이<br>15,000</td>
+  
+    </tr>
+  </table>
+</font>`,
       });
     },
     initMap() {
@@ -199,7 +191,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #map {
-  width: 374px;
+  width: 400;
   height: 350px;
 }
 

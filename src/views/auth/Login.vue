@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-card class="mx-auto my-2" max-width="400">
+    <v-card class="mx-auto my-2" max-width="400" elevation="24" outlined shaped>
       <v-img
         class="white--text align-end"
         height="200px"
@@ -46,14 +46,14 @@
               <v-icon>mdi-google</v-icon> &nbsp;구글계정으로 로그인
             </v-btn>
             <br />Or<br />
-            <v-btn color="black" class="ma-2 white--text" large>
-              <router-link
-                to="/register"
-                style="text-decoration: none; color: inherit"
-              >
+            <router-link
+              to="/register"
+              style="text-decoration: none; color: inherit"
+            >
+              <v-btn color="black" class="ma-2 white--text" large>
                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;회원가입 &nbsp; &nbsp;
-                &nbsp; &nbsp; &nbsp; &nbsp;</router-link
-              ></v-btn
+                &nbsp; &nbsp; &nbsp; &nbsp;</v-btn
+              ></router-link
             >
           </center>
           <br /><br />
