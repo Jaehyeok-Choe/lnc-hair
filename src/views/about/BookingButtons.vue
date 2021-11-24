@@ -3,6 +3,7 @@
     <!-- 예약가능시간 버튼 첫번 째 줄에 버튼 4개 생성 -->
     <v-row align="center" justify="center" class="mb-1">
       <v-btn
+        small
         v-for="i in 4"
         :key="i"
         class="mx-auto white--text"
@@ -15,6 +16,7 @@
     <!-- 예약가능시간 버튼 두번 째 줄에 버튼 4개 생성 -->
     <v-row align="center" justify="center" class="mb-1">
       <v-btn
+        small
         v-for="j in 4"
         :key="j"
         @click="confirmBooking(selectedDate, bookingHours[j + 3])"
@@ -27,17 +29,20 @@
     <!-- 예약가능시간 버튼 세번 째 줄에 버튼 4개 생성 -->
     <v-row justify="center">
       <v-btn
+        small
         v-for="k in 2"
         :key="k"
         @click="confirmBooking(selectedDate, bookingHours[k + 7])"
-        class="mr-1 white--text"
+        class="mr-4 ml-4 white--text"
         :color="buttonColor"
         :disabled="disableButtons[k + 7]"
         >{{ bookingHours[k + 7] }}:00</v-btn
       >
     </v-row>
   </v-container>
-  <v-container v-else><center>예약이 불가능한 날짜입니다.</center></v-container>
+  <v-container v-else
+    ><center>{{ showUnavailableMsg }}</center></v-container
+  >
 </template>
 
 <script>
@@ -63,6 +68,7 @@ export default {
         false,
         false,
       ],
+      showUnavailableMsg: "예약이 불가능한 날짜입니다.",
     };
   },
   created() {
@@ -82,6 +88,8 @@ export default {
       });
     // 유저 전화번호 가져오는 코드
     this.$store.dispatch("getUserPhoneNumber");
+    // 예약하려는 시간이 현재시간 기준 전이면 예약 불가능하게 하는 메서드 호출
+    this.disableUnavailabeTimeBtn();
   },
   methods: {
     confirmBooking(val, hour) {
@@ -144,6 +152,16 @@ export default {
       }${current.getDate()}`;
       return date;
     },
+    // 예약하려는 시간이 현재시간 기준 전이면 예약 불가능하게 하는 메서드
+    disableUnavailabeTimeBtn() {
+      const today = new Date();
+      const time = today.getHours();
+      for (let i = 10; i < 20; i++) {
+        if (time >= i) {
+          this.disableButtons[i - 10] = true;
+        }
+      }
+    },
   },
   watch: {
     // Booking.vue의 캘린더에서 날짜 변경이 감지되는 순간 아래 코드 실행
@@ -155,6 +173,7 @@ export default {
       // 캘린더에서 오늘 날짜 이전의 날을 클릭할 시 예약시간선택버튼 안보이도록
       if (parseInt(splitedSelectedDate) < this.getCurrentDate()) {
         this.showButtons = false;
+        this.showUnavailableMsg = "예약이 불가능한 날짜입니다.";
       } else {
         // 다른 날짜 선택될 때 이전 변경된 값 초기화
         this.showButtons = false;
@@ -175,6 +194,19 @@ export default {
           .catch((error) => {
             console.log(error);
           });
+        // 예약불가메세지 비우기
+        this.showUnavailableMsg = "";
+        // 캘린더에서 선택된 날짜가 현재날짜일때만 예약하려는 시간에 따라 버튼 클릭불가하게 하는 코드
+        let today = new Date();
+        let date =
+          today.getFullYear() +
+          "-" +
+          (today.getMonth() + 1) +
+          "-" +
+          today.getDate();
+        if (paramSelectedDate === date) {
+          this.disableUnavailabeTimeBtn();
+        }
       }
     },
   },

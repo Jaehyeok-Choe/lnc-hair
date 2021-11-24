@@ -1,6 +1,6 @@
 <template>
-  <v-container fill-height fluid>
-    <v-card class="mx-auto" max-width="374">
+  <v-container>
+    <v-card class="mx-auto my-2" max-width="400" elevation="24" outlined shaped>
       <v-card-text>
         <p>
           <v-chip color="success" outlined>

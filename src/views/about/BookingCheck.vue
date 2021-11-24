@@ -1,6 +1,6 @@
 <template>
   <!-- 관리자 권한일때 -->
-  <div v-if="adminCheck === 'tbeben77@gmail.com'">
+  <div v-if="adminCheck === this.$store.state.masterAccount">
     <BookingCheckAdmin></BookingCheckAdmin>
   </div>
   <!-- 일반유저 권한일때 -->
@@ -43,6 +43,9 @@ import BookingCheckAdmin from "../about/bookingAdmin/BookingCheckAdmin";
 export default {
   components: { BookingCheckAdmin },
   created() {
+    // 관리자권한 이메일 가져오는 코드
+    this.$store.dispatch("getMasterAccount");
+    // 유저가 예약한 내역 가져오기 위한 코드
     const user = firebase.auth().currentUser;
     const db = firebase.firestore();
     db.collection("booking")

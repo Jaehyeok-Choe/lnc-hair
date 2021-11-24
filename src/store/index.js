@@ -14,6 +14,8 @@ export default new Vuex.Store({
     userDisplayName: "",
     email: "",
     phoneNumber: "",
+    // 관리자권한
+    masterAccount: "",
   },
   mutations: {
     setUserLoginOn(state) {
@@ -32,6 +34,9 @@ export default new Vuex.Store({
     },
     setUserPhoneNumber(state, payload) {
       state.phoneNumber = payload.phoneNumber;
+    },
+    setMasterAccount(state) {
+      state.masterAccount = "tbeben77@gmail.com";
     },
   },
   actions: {
@@ -63,6 +68,9 @@ export default new Vuex.Store({
         .catch((error) => {
           console.log(error);
         });
+    },
+    getMasterAccount({ commit }) {
+      commit("setMasterAccount");
     },
   },
   modules: {},

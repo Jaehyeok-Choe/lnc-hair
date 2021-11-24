@@ -9,6 +9,10 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: "*",
+    component: () => import("@/views/Home.vue"),
+  },
+  {
     path: "/",
     name: "Home",
     component: Home,
@@ -84,7 +88,7 @@ const routes = [
     name: "Map",
 
     component: () =>
-      import(/* webpackChunkName: "map" */ "../views/about//Map.vue"),
+      import(/* webpackChunkName: "map" */ "../views/about/Map.vue"),
   },
   {
     path: "/contactUs",
@@ -92,7 +96,7 @@ const routes = [
 
     component: () =>
       import(
-        /* webpackChunkName: "contactUs" */ "../views/about//ContactUs.vue"
+        /* webpackChunkName: "contactUs" */ "../views/about/ContactUs.vue"
       ),
   },
   {
@@ -101,7 +105,7 @@ const routes = [
 
     component: () =>
       import(
-        /* webpackChunkName: "styleBook" */ "../views/about//StyleBook.vue"
+        /* webpackChunkName: "styleBook" */ "../views/about/StyleBook.vue"
       ),
   },
 ];

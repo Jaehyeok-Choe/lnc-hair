@@ -18,7 +18,7 @@
         >
       </v-chip>
     </div>
-    <div v-else>예약 내역이 없습니다.</div>
+    <div v-else>{{ showUnavailableMsg }}</div>
   </div>
 </template>
 
@@ -33,16 +33,17 @@ export default {
     return {
       bookingList: [],
       showChip: false,
+      showUnavailableMsg: "예약 내역이 없습니다.",
     };
   },
   // 페이지가 첫 로드될때 선택된 날짜(현재날짜) 값을 처리
   created() {
-    this.getSelectedDate(this.selectedDate);
+    this.getSelectedDateBookingList(this.selectedDate);
   },
   // BookingCheckAdmin 페이지에서 선택된 날짜 값을 받아오고 처리
   watch: {
     selectedDate: function (paramSelectedDate) {
-      this.getSelectedDate(paramSelectedDate);
+      this.getSelectedDateBookingList(paramSelectedDate);
     },
   },
   methods: {
@@ -77,7 +78,7 @@ export default {
       });
     },
     // 달력에서 선택된 날짜에 존재하는 예약들 가져오는 메서드
-    getSelectedDate(paramSelectedDate) {
+    getSelectedDateBookingList(paramSelectedDate) {
       this.bookingList = [];
       const db = firebase.firestore();
       db.collection("booking")
@@ -89,6 +90,9 @@ export default {
             this.bookingList.push(doc.data());
           });
           this.showChip = true;
+          if (this.bookingList.length === 0) {
+            this.showChip = false;
+          }
         })
         .catch((error) => {
           console.log(error);
