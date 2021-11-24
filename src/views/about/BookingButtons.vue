@@ -7,7 +7,7 @@
         v-for="i in 4"
         :key="i"
         class="mx-auto white--text"
-        @click="confirmBooking(selectedDate, bookingHours[i - 1])"
+        @click="test(selectedDate, bookingHours[i - 1])"
         :color="buttonColor"
         :disabled="disableButtons[i - 1]"
         >{{ bookingHours[i - 1] }}:00</v-btn
@@ -19,7 +19,7 @@
         small
         v-for="j in 4"
         :key="j"
-        @click="confirmBooking(selectedDate, bookingHours[j + 3])"
+        @click="test(selectedDate, bookingHours[j + 3])"
         class="mx-auto white--text"
         :color="buttonColor"
         :disabled="disableButtons[j + 3]"
@@ -32,7 +32,7 @@
         small
         v-for="k in 2"
         :key="k"
-        @click="confirmBooking(selectedDate, bookingHours[k + 7])"
+        @click="test(selectedDate, bookingHours[k + 7])"
         class="mr-4 ml-4 white--text"
         :color="buttonColor"
         :disabled="disableButtons[k + 7]"
@@ -92,6 +92,11 @@ export default {
     this.disableUnavailabeTimeBtn();
   },
   methods: {
+    // 구글로그인한 유저 전화번호를 booking collection에 저장하기 위한 코드
+    test(val, hour) {
+      this.confirmBooking(val, hour);
+    },
+    // form validation
     confirmBooking(val, hour) {
       Swal.fire({
         title: "예약확인",
@@ -124,6 +129,7 @@ export default {
         }
       });
     },
+
     // 예약정보 저장 메소드
     async saveBookingInfo(val, hour) {
       const db = firebase.firestore();

@@ -9,20 +9,25 @@
         <v-card-title>연락하기</v-card-title>
       </v-img>
       <br />
-      <v-card-title class="ml-5">📞 <b>전화문의 & 예약</b></v-card-title>
-      <v-card-text class="ml-12">
-        매장번호 070 7537 2678 <br />휴대번호 010 6609 4610</v-card-text
+      <v-card-title class="ml-5">📞 &nbsp;<b>전화문의 & 예약</b></v-card-title>
+      <v-card-text class="ml-14">
+        매장번호:
+        <a href="tel:070-7537-2678"> 070-7537-2678</a> 로 전화걸기
+        <br /><br />휴대번호: <a href="tel:010-6609-4610"> 010-6609-4610</a> 로
+        전화걸기</v-card-text
       >
-      <v-card-title class="ml-5">💡 <b>카톡문의 & 예약</b></v-card-title>
-      <v-card-text class="ml-12">
+      <v-card-title class="ml-5">💡 &nbsp;<b>카톡문의 & 예약</b></v-card-title>
+      <v-card-text class="ml-14">
         <a
           href="https://open.kakao.com/me/lnc_manshair
 "
           >오픈카톡</a
         >
       </v-card-text>
-      <v-card-title class="ml-5">🌏 <b>온라인문의 & 예약</b></v-card-title>
-      <v-card-text class="ml-12"> 주소 www.lnc-hair.com</v-card-text>
+      <v-card-title class="ml-5"
+        >🌏 &nbsp;<b>온라인문의 & 예약</b></v-card-title
+      >
+      <v-card-text class="ml-14"> 주소 www.lnc-hair.com</v-card-text>
       <v-divider class="mx-4"></v-divider>
 
       <v-card-title>PRICE LIST</v-card-title>

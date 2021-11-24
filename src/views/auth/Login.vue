@@ -115,23 +115,19 @@ export default {
         });
       this.$store.dispatch("getCurrentUser");
     },
-    // reset() {
-    //   this.$refs.form.reset();
-    // },
     resetValidation() {
       this.$refs.form.resetValidation();
     },
     googleLogin() {
       const provider = new firebase.auth.GoogleAuthProvider();
-
       firebase
         .auth()
         .signInWithPopup(provider)
         .then(() => {
           this.$router.push({ name: "Home" });
         })
-        .catch((err) => {
-          alert("Oops. " + err.message);
+        .catch(() => {
+          alert("구글 로그인이 취소되었습니다. 다시 시도해 주시기 바랍니다.");
         });
       this.$store.dispatch("getCurrentUser");
     },
