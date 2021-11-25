@@ -10,14 +10,17 @@
       >
         <v-icon left> mdi-account-circle-outline </v-icon>
         <b>
-          {{ item.bookingTime }}시 {{ item.name }} ({{
-            item.phoneNumber.slice(0, 3) +
-            "-" +
-            item.phoneNumber.slice(3, 7) +
-            "-" +
-            item.phoneNumber.slice(7, 11)
-          }})</b
-        >
+          {{ item.bookingTime }}시 {{ item.name }}
+          <a :href="`tel:${item.phoneNumber}`">
+            ({{
+              item.phoneNumber.slice(0, 3) +
+              "-" +
+              item.phoneNumber.slice(3, 7) +
+              "-" +
+              item.phoneNumber.slice(7, 11)
+            }})</a
+          ></b
+        >&nbsp;
         <v-icon
           @click="deleteBooking(item.bookingDate, item.bookingTime, item.name)"
           >mdi-delete</v-icon
@@ -114,4 +117,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+a:link {
+  color: #0db50d;
+  text-decoration: none;
+}
+</style>

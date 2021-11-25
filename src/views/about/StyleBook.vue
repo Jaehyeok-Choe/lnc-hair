@@ -2,11 +2,11 @@
   <v-container>
     <v-card class="mx-auto my-2" max-width="400" elevation="24" outlined shaped>
       <div v-if="this.adminCheck === this.$store.state.masterAccount">
-        <center>
-          <v-btn @click="showFileUpload" class="mb-3 mt-3" color="yellow"
+        <div class="pa-5">
+          <v-btn @click="showFileUpload" class="mx-0" color="yellow" block
             ><b>Upload</b></v-btn
           >
-        </center>
+        </div>
         <div v-if="uploadBox"><upload-image></upload-image></div>
         <div v-else></div>
       </div>
@@ -18,7 +18,7 @@
               :src="card.src"
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="200px"
+              height="150px"
             >
               <v-card-title v-text="card.title"></v-card-title>
             </v-img>
