@@ -109,6 +109,7 @@ export default {
   methods: {
     async signOut() {
       try {
+        this.$store.state.phoneNumber = "";
         const data = await firebase.auth().signOut();
         console.log(data);
         this.$router.push({ name: "Login" });

@@ -9,25 +9,30 @@
         <v-card-title>연락하기</v-card-title>
       </v-img>
       <br />
-      <v-card-title class="ml-5">📞 &nbsp;<b>전화문의 & 예약</b></v-card-title>
-      <v-card-text class="ml-14">
-        매장번호:
-        <a href="tel:070-7537-2678"> 070-7537-2678</a> 로 전화걸기
-        <br /><br />휴대번호: <a href="tel:010-6609-4610"> 010-6609-4610</a> 로
-        전화걸기</v-card-text
+      <v-card-title class="ml-2">📞 &nbsp;<b>전화문의 & 예약</b></v-card-title>
+      <v-card-text class="ml-7">
+        <b
+          >매장번호: <a href="tel:070-7537-2678"> 070-7537-2678</a> 로 전화걸기
+          <br /><br />휴대번호:
+          <a href="tel:010-6609-4610"> 010-6609-4610</a> 로 전화걸기</b
+        ></v-card-text
       >
-      <v-card-title class="ml-5">💡 &nbsp;<b>카톡문의 & 예약</b></v-card-title>
-      <v-card-text class="ml-14">
-        <a
-          href="https://open.kakao.com/me/lnc_manshair
+      <v-card-title class="ml-2">💡 &nbsp;<b>카톡문의 & 예약</b></v-card-title>
+      <v-card-text class="ml-7">
+        <b>
+          <a
+            href="https://open.kakao.com/me/lnc_manshair
 "
-          >오픈카톡</a
+            >오픈카톡</a
+          ></b
         >
       </v-card-text>
-      <v-card-title class="ml-5"
+      <v-card-title class="ml-2"
         >🌏 &nbsp;<b>온라인문의 & 예약</b></v-card-title
       >
-      <v-card-text class="ml-14"> 주소 www.lnc-hair.com</v-card-text>
+      <v-card-text class="ml-7">
+        <b> www.lnc-hair.com 접속 > 로그인 > 예약하기</b></v-card-text
+      >
       <v-divider class="mx-4"></v-divider>
 
       <v-card-title>PRICE LIST</v-card-title>
@@ -61,7 +66,7 @@ export default {
   <table class="mytable" style="width:100%" >
     <tr>
       <th style="background-color:grey"><font color="white">CUT</font></th>
-      <th style="background-color:black"><font color="white">PERM</font></th>
+      <th style="background-color:grey"><font color="white">PERM</font></th>
     
     </tr>
     <tr>
@@ -69,7 +74,7 @@ export default {
       <td><br>다운펌(부분) 20,000<br><br>다운펌(전체) 50,000<br><br>콜드펌 90,000<br><br>아이롱펌 130,000<br><br>매직 110,000<br><br>컷트시 1만원 할인<br>&nbsp;</td>
     </tr>
     <tr>
-      <th style="background-color:black"><font color="white">CLINIC</font></th>
+      <th style="background-color:grey"><font color="white">CLINIC</font></th>
       <th style="background-color:grey"><font color="white">COLOR & ECT.</font></th>
     
     </tr>
@@ -86,4 +91,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+a:link {
+  text-decoration: none;
+}
+</style>

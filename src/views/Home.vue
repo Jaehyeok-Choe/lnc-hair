@@ -74,8 +74,11 @@
           </v-card-actions>
           <v-chip class="mt-2 mb-1" small color="pink" label text-color="white">
             <v-icon left small> mdi-phone </v-icon>
-            010-6009-4610 / 070-7537-2678 </v-chip
-          ><br />
+            <a id="call" href="tel:010-6609-4610">010-6009-4610</a>&nbsp;&nbsp;
+            /&nbsp;&nbsp;
+            <a id="call" href="tel:070-7537-2678">070-7537-2678</a>
+          </v-chip>
+          <br />
           <v-chip class="mb-1 mr-1" small color="black" label text-color="white"
             >도로명</v-chip
           >
@@ -103,7 +106,7 @@
           첫/ 둘/ 넷째 주 화요일</v-chip
         >
         <div class="red--text">
-          <center>※둘째 주 일요일 휴무 / 셋째 주 화요일은 출근</center>
+          <center>※ 둘째 주 일요일 휴무 / 셋째 주 화요일은 출근</center>
         </div>
       </v-card-text>
     </v-card>
@@ -144,3 +147,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+#call {
+  color: white;
+  text-decoration: none;
+}
+</style>

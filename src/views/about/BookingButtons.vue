@@ -7,7 +7,7 @@
         v-for="i in 4"
         :key="i"
         class="mx-auto white--text"
-        @click="test(selectedDate, bookingHours[i - 1])"
+        @click="goBooking(selectedDate, bookingHours[i - 1])"
         :color="buttonColor"
         :disabled="disableButtons[i - 1]"
         >{{ bookingHours[i - 1] }}:00</v-btn
@@ -19,7 +19,7 @@
         small
         v-for="j in 4"
         :key="j"
-        @click="test(selectedDate, bookingHours[j + 3])"
+        @click="goBooking(selectedDate, bookingHours[j + 3])"
         class="mx-auto white--text"
         :color="buttonColor"
         :disabled="disableButtons[j + 3]"
@@ -32,7 +32,7 @@
         small
         v-for="k in 2"
         :key="k"
-        @click="test(selectedDate, bookingHours[k + 7])"
+        @click="goBooking(selectedDate, bookingHours[k + 7])"
         class="mr-4 ml-4 white--text"
         :color="buttonColor"
         :disabled="disableButtons[k + 7]"
@@ -92,17 +92,52 @@ export default {
     this.disableUnavailabeTimeBtn();
   },
   methods: {
-    // 구글로그인한 유저 전화번호를 booking collection에 저장하기 위한 코드
-    test(val, hour) {
-      this.confirmBooking(val, hour);
+    goBooking(date, hour) {
+      // 구글로그인으로 처음 예약하는 예약자 휴대폰 번호 받고
+      // users에 해당 유저 document 생성하고
+      // 예약 진행하는 코드(휴대폰 번호는 첫 예약때만 요구함)
+      const userInfo = firebase.auth().currentUser;
+      const userUid = userInfo.uid;
+      const db = firebase.firestore();
+      db.collection("users")
+        .doc(userUid)
+        .get()
+        .then((snapshot) => {
+          if (snapshot.data()) {
+            this.confirmBooking(date, hour);
+          } else {
+            Swal.fire({
+              html: "<b>예약확인</b> <br><br>휴대폰 번호를 입력해주세요.<br><font color='red'>( - 없이 숫자만 입력)</font>",
+              input: "number",
+            }).then((data) => {
+              if (data.value.length > 10 && data.value.length < 12) {
+                this.confirmBooking(date, hour);
+                db.collection("users").doc(userUid).set({
+                  name: userInfo.displayName,
+                  phoneNumber: data.value,
+                  email: userInfo.email,
+                  dateCreated: this.getTimeStamp(),
+                });
+              } else {
+                Swal.fire({
+                  position: "center",
+                  icon: "warning",
+                  title: "잘못된 입력입니다",
+                  showConfirmButton: false,
+                  timer: 1000,
+                });
+              }
+            });
+          }
+        });
     },
     // form validation
-    confirmBooking(val, hour) {
+    confirmBooking(date, hour) {
       Swal.fire({
         title: "예약확인",
         html:
           "방문날짜: <b>" +
-          val +
+          date +
           "</b><br>방문시간: <b>" +
           hour +
           ":00</b>" +
@@ -113,8 +148,7 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           // 예약정보 저장하는 메소드 호출
-          this.saveBookingInfo(val, hour);
-
+          this.saveBookingInfo(date, hour);
           Swal.fire({
             position: "center",
             icon: "success",
@@ -131,13 +165,13 @@ export default {
     },
 
     // 예약정보 저장 메소드
-    async saveBookingInfo(val, hour) {
+    async saveBookingInfo(date, hour) {
       const db = firebase.firestore();
       await db
         .collection("booking")
         .doc()
         .set({
-          bookingDate: val,
+          bookingDate: date,
           bookingTime: hour,
           name: this.$store.state.userDisplayName,
           phoneNumber: this.$store.state.phoneNumber,
@@ -167,6 +201,24 @@ export default {
           this.disableButtons[i - 10] = true;
         }
       }
+    },
+    getTimeStamp() {
+      // timestamp for user create
+      const current = new Date();
+      const date =
+        current.getFullYear() +
+        "-" +
+        (current.getMonth() + 1) +
+        "-" +
+        current.getDate();
+      const time =
+        current.getHours() +
+        ":" +
+        current.getMinutes() +
+        ":" +
+        current.getSeconds();
+      const dateTime = date + " / " + time;
+      return dateTime;
     },
   },
   watch: {

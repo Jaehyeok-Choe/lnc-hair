@@ -99,7 +99,7 @@ export default {
   <table class="mytable" style="width:100%" >
     <tr>
       <th style="background-color:grey"><font color="white">CUT</font></th>
-      <th style="background-color:black"><font color="white">PERM</font></th>
+      <th style="background-color:grey"><font color="white">PERM</font></th>
     
     </tr>
     <tr>
@@ -107,7 +107,7 @@ export default {
       <td><br>다운펌(부분) 20,000<br><br>다운펌(전체) 50,000<br><br>콜드펌 90,000<br><br>아이롱펌 130,000<br><br>매직 110,000<br><br>컷트시 1만원 할인<br>&nbsp;</td>
     </tr>
     <tr>
-      <th style="background-color:black"><font color="white">CLINIC</font></th>
+      <th style="background-color:grey"><font color="white">CLINIC</font></th>
       <th style="background-color:grey"><font color="white">COLOR & ECT.</font></th>
     
     </tr>

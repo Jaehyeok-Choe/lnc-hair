@@ -40,6 +40,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import Swal from "sweetalert2";
+import { getAuth } from "firebase/auth";
 export default {
   data() {
     return {
@@ -58,14 +59,16 @@ export default {
       return this.sendPasswordResetEmail();
     },
     sendPasswordResetEmail() {
+      const auth = getAuth();
+      auth.languageCode = "ko";
       firebase
         .auth()
         .sendPasswordResetEmail(this.email)
         .then(() => {
           Swal.fire({
             icon: "success",
-            title: "Email has been sent successfully",
-            footer: `Password reset email has been sent to "${this.email}"`,
+            title: "이메일 전송완료",
+            footer: `비밀번호 재설정 이메일이 다음 주소로 전송되었습니다: "${this.email}"`,
             showConfirmButton: true,
           });
         })
@@ -75,6 +78,11 @@ export default {
           console.log(
             `Error code: ${errorCode} <br> Error message: ${errorMessage}`
           );
+          Swal.fire({
+            icon: "warning",
+            text: "가입되지 않은 이메일입니다",
+            showConfirmButton: true,
+          });
         });
     },
   },

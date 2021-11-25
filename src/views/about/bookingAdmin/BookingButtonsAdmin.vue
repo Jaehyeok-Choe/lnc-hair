@@ -10,7 +10,13 @@
       >
         <v-icon left> mdi-account-circle-outline </v-icon>
         <b>
-          {{ item.bookingTime }}시 {{ item.name }} ({{ item.phoneNumber }})</b
+          {{ item.bookingTime }}시 {{ item.name }} ({{
+            item.phoneNumber.slice(0, 3) +
+            "-" +
+            item.phoneNumber.slice(3, 7) +
+            "-" +
+            item.phoneNumber.slice(7, 11)
+          }})</b
         >
         <v-icon
           @click="deleteBooking(item.bookingDate, item.bookingTime, item.name)"
@@ -51,7 +57,13 @@ export default {
     deleteBooking(date, time, name) {
       Swal.fire({
         title: "예약삭제",
-        html: `${name}님의 ${date}<br>${time}시 예약을 정말 삭제하시겠습니까?`,
+        html: `<b>${name}</b>님의 <font color='red'><br>${date.slice(
+          0,
+          4
+        )}년 ${date.slice(5, 7)}월 ${date.slice(
+          8,
+          10
+        )}일 ${time}시</font> <br>예약을 정말 삭제하시겠습니까?`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
