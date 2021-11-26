@@ -17,6 +17,10 @@ export default new Vuex.Store({
     // 관리자권한
     masterAccount: "",
   },
+  getters: {
+    email: (state) => state.email,
+    masterAccount: (state) => state.masterAccount,
+  },
   mutations: {
     setUserLoginOn(state) {
       state.isLogin = true;
@@ -30,7 +34,10 @@ export default new Vuex.Store({
       state.email = payload.email;
     },
     emptyUserProfile(state) {
+      state.uid = "";
       state.userDisplayName = "";
+      state.email = "";
+      state.phoneNumber = "";
     },
     setUserPhoneNumber(state, payload) {
       state.phoneNumber = payload.phoneNumber;

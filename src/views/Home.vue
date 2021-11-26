@@ -66,6 +66,17 @@
               class="mx-0"
               color="yellow"
               large
+              :to="{ name: 'Master' }"
+              v-else-if="
+                this.$store.state.email === this.$store.state.masterAccount
+              "
+              block
+              ><b>M A S T E R</b></v-btn
+            >
+            <v-btn
+              class="mx-0"
+              color="yellow"
+              large
               :to="{ name: 'Booking' }"
               v-else
               block
@@ -116,7 +127,6 @@
 <script>
 export default {
   name: "Home",
-
   data() {
     return {
       theBestEver: "The Best Ever",

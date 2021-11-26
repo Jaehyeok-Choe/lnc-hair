@@ -88,7 +88,7 @@ export default {
     items: [
       {
         action: "mdi-home",
-        items: [{ title: "Home", to: "/" }],
+        items: [{ title: "홈으로", to: "/" }],
         title: "Home",
       },
       {

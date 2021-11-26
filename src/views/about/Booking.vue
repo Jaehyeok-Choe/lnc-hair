@@ -32,7 +32,7 @@
       <v-card-text class="text-center">
         <p><strong>예약내역확인</strong></p>
         <v-btn color="success" :to="{ name: 'BookingCheck' }" block
-          >예약보기</v-btn
+          >예약내역보기</v-btn
         >
       </v-card-text>
     </v-card>

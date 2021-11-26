@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
+import store from "../store/index";
 
 Vue.use(VueRouter);
 
@@ -108,6 +109,13 @@ const routes = [
         /* webpackChunkName: "styleBook" */ "../views/about/StyleBook.vue"
       ),
   },
+  {
+    path: "/master",
+    name: "Master",
+
+    component: () =>
+      import(/* webpackChunkName: "master" */ "../views/master/Master.vue"),
+  },
 ];
 
 const router = new VueRouter({
@@ -118,16 +126,20 @@ const router = new VueRouter({
 // 로그인 여부에 따라 접근할 수 있는 메뉴 제어
 router.beforeEach((to, from, next) => {
   const isAuthenticated = firebase.auth().currentUser;
+  const userEmail = store.getters.email;
+  const masterEmail = store.getters.masterAccount;
 
   if (
     (isAuthenticated && to.name === "Login") ||
     (isAuthenticated && to.name === "Register") ||
-    (isAuthenticated && to.name === "ResetPassword")
+    (isAuthenticated && to.name === "ResetPassword") ||
+    (isAuthenticated && to.name === "Master" && userEmail != masterEmail)
   ) {
     next("/");
   } else if (
     (!isAuthenticated && to.name === "Booking") ||
-    (!isAuthenticated && to.name === "BookingCheck")
+    (!isAuthenticated && to.name === "BookingCheck") ||
+    (!isAuthenticated && to.name === "Master")
   ) {
     next("/login");
   } else {

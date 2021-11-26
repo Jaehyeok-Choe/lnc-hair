@@ -93,40 +93,57 @@ export default {
   },
   methods: {
     goBooking(date, hour) {
-      // 구글로그인으로 처음 예약하는 예약자 휴대폰 번호 받고
-      // users에 해당 유저 document 생성하고
-      // 예약 진행하는 코드(휴대폰 번호는 첫 예약때만 요구함)
       const userInfo = firebase.auth().currentUser;
       const userUid = userInfo.uid;
       const db = firebase.firestore();
-      db.collection("users")
-        .doc(userUid)
+      // 같은날 중복 예약 막는 코드
+      db.collection("booking")
+        .where("bookingDate", "==", date)
+        .where("uid", "==", userUid)
         .get()
-        .then((snapshot) => {
-          if (snapshot.data()) {
-            this.confirmBooking(date, hour);
+        .then((doc) => {
+          if (doc.empty) {
+            // 구글로그인으로 처음 예약하는 예약자 휴대폰 번호 받고
+            // users에 해당 유저 document 생성하고
+            // 예약 진행하는 코드(휴대폰 번호는 첫 예약때만 요구함)
+            db.collection("users")
+              .doc(userUid)
+              .get()
+              .then((snapshot) => {
+                if (snapshot.data()) {
+                  this.confirmBooking(date, hour);
+                } else {
+                  Swal.fire({
+                    html: "<b>예약확인</b> <br><br>휴대폰 번호를 입력해주세요.<br><font color='red'>( - 없이 숫자만 입력)</font>",
+                    input: "number",
+                  }).then((data) => {
+                    if (data.value.length > 10 && data.value.length < 12) {
+                      this.confirmBooking(date, hour);
+                      db.collection("users").doc(userUid).set({
+                        name: userInfo.displayName,
+                        phoneNumber: data.value,
+                        email: userInfo.email,
+                        dateCreated: this.getTimeStamp(),
+                      });
+                    } else {
+                      Swal.fire({
+                        position: "center",
+                        icon: "warning",
+                        title: "잘못된 입력입니다",
+                        showConfirmButton: false,
+                        timer: 1000,
+                      });
+                    }
+                  });
+                }
+              });
           } else {
             Swal.fire({
-              html: "<b>예약확인</b> <br><br>휴대폰 번호를 입력해주세요.<br><font color='red'>( - 없이 숫자만 입력)</font>",
-              input: "number",
-            }).then((data) => {
-              if (data.value.length > 10 && data.value.length < 12) {
-                this.confirmBooking(date, hour);
-                db.collection("users").doc(userUid).set({
-                  name: userInfo.displayName,
-                  phoneNumber: data.value,
-                  email: userInfo.email,
-                  dateCreated: this.getTimeStamp(),
-                });
-              } else {
-                Swal.fire({
-                  position: "center",
-                  icon: "warning",
-                  title: "잘못된 입력입니다",
-                  showConfirmButton: false,
-                  timer: 1000,
-                });
-              }
+              position: "center",
+              icon: "warning",
+              html: "<b>같은 날 중복 예약 불가능합니다</b>",
+              showConfirmButton: false,
+              timer: 1500,
             });
           }
         });
