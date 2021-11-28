@@ -29,33 +29,32 @@
             @click:append="show1 = !show1"
           ></v-text-field>
           <br />
-          <center>
-            <v-btn
-              :disabled="!valid"
-              color="success"
-              class="ma-2"
-              @click="validate"
-              large
-            >
-              &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              &nbsp;로그인
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              &nbsp;&nbsp;
-            </v-btn>
-            <v-btn class="ma-2" color="info" large @click="googleLogin">
-              <v-icon>mdi-google</v-icon> &nbsp;구글계정으로 로그인
-            </v-btn>
-            <br />Or<br />
-            <router-link
-              to="/register"
-              style="text-decoration: none; color: inherit"
-            >
-              <v-btn color="black" class="ma-2 white--text" large>
-                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;회원가입 &nbsp; &nbsp;
-                &nbsp; &nbsp; &nbsp; &nbsp;</v-btn
-              ></router-link
-            >
-          </center>
+
+          <v-btn
+            class="my-2"
+            :disabled="!valid"
+            color="success"
+            block
+            @click="validate"
+          >
+            <b> 로그인</b>
+          </v-btn>
+          <v-btn class="my-2" color="#ffe812" block @click="kakaoLogin">
+            <Icon icon="vs:kakaotalk" />&nbsp;<b> 카카오계정으로 로그인</b>
+          </v-btn>
+          <v-btn class="my-1" color="#dd4b39" dark block @click="googleLogin">
+            <v-icon>mdi-google</v-icon> &nbsp;<b> 구글계정으로 로그인</b>
+          </v-btn>
+          <center>or</center>
+          <router-link
+            to="/register"
+            style="text-decoration: none; color: inherit"
+          >
+            <v-btn color="black" class="my-1 white--text" block>
+              <b> 회원가입</b>
+            </v-btn></router-link
+          >
+
           <br /><br />
 
           <router-link to="/resetPassword">비밀번호를 잊으셨나요?</router-link>
@@ -70,7 +69,11 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import Swal from "sweetalert2";
+import { Icon } from "@iconify/vue2";
 export default {
+  components: {
+    Icon,
+  },
   data: () => ({
     valid: true,
     // email val
@@ -130,6 +133,9 @@ export default {
           alert("구글 로그인이 취소되었습니다. 다시 시도해 주시기 바랍니다.");
         });
       this.$store.dispatch("getCurrentUser");
+    },
+    kakaoLogin() {
+      console.log("kakao login test");
     },
   },
 };

@@ -10,6 +10,26 @@
         ></v-toolbar-title
       >
       <v-spacer></v-spacer>
+      <v-btn color="black" :to="{ name: 'Home' }" x-small exact>
+        <v-icon size="19px" color="white"> mdi-home </v-icon></v-btn
+      >
+      <v-btn color="black" :to="{ name: 'Map' }" x-small exact>
+        <v-icon size="19px" color="white">mdi-map </v-icon>
+      </v-btn>
+      <!-- <v-btn color="black" :to="{ name: 'ContactUs' }" x-small>
+        <v-icon size="19px" color="white"> mdi-phone </v-icon>
+      </v-btn> -->
+      <v-btn color="black" :to="{ name: 'StyleBook' }" x-small exact>
+        <v-icon size="19px" color="white"> mdi-image </v-icon>
+      </v-btn>
+      <v-btn
+        color="black"
+        href="https://www.instagram.com/_nikka.lnc/"
+        x-small
+        exact
+      >
+        <v-icon size="19px" color="white"> mdi-instagram </v-icon>
+      </v-btn>
     </v-app-bar>
 
     <!-- 왼쪽 상단 버튼클릭시 나오는 메뉴 시작-->
@@ -99,7 +119,7 @@ export default {
           // { title: "예약하기2", to: "/booking2" },
           { title: "예약확인", to: "/bookingCheck" },
           { title: "스타일북", to: "/styleBook" },
-          { title: "연락하기", to: "/contactUs" },
+          // { title: "연락하기", to: "/contactUs" },
           { title: "오시는길", to: "/map" },
         ],
         title: "About",
@@ -122,4 +142,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+@media screen and (max-device-width: 768px) {
+  .v-btn:hover:before {
+    opacity: 0 !important;
+  }
+}
+</style>

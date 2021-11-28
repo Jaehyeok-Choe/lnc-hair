@@ -8,31 +8,13 @@
       outlined
       shaped
     >
-      <template slot="progress">
-        <v-progress-linear
-          color="deep-purple"
-          height="10"
-          indeterminate
-        ></v-progress-linear>
-      </template>
+      <v-img
+        class="white--text align-end"
+        height="200px"
+        src="https://picsum.photos/510/300?random"
+      ></v-img>
 
-      <v-carousel
-        cycle
-        height="240"
-        hide-delimiter-background
-        show-arrows-on-hover
-      >
-        <v-carousel-item
-          v-for="(item, i) in items"
-          :key="i"
-          reverse-transition="fade-transition"
-          transition="fade-transition"
-        >
-          <v-img height="240" :src="item.src"></v-img>
-        </v-carousel-item>
-      </v-carousel>
-
-      <v-card-title>L.N.C</v-card-title>
+      <v-card-title>💈 • MEN's Hair & M -up</v-card-title>
       <v-card-text>
         <v-row align="center" class="mx-0">
           <v-rating
@@ -51,13 +33,18 @@
           </div>
           <div v-else>&nbsp; {{ theBestEver }}</div>
         </v-row>
-        <div class="my-4 text-subtitle-1">💈 • MEN's Hair & M -up</div>
+        <br /><br />
         <div>
-          남성전문 1인 헤어&메이크업샵으로 <br />
-          "맨즈 프리미엄 토탈살롱" 입니다 :) <br />남자들의 편안한 미용실문화를
-          추구합니다 !!<br />
-          원하시는 스타일, 컴플렉스 등의 요구사항을 <br />
-          편하게 말씀해주세요 🧡<br />
+          <div style="font-size: 2em; font-weight: bold">
+            <center>회원가입이 완료되었습니다</center>
+          </div>
+          <br />
+          <center>회원님의 로그인 아이디는 아래와 같습니다</center>
+          <br />
+          <div style="font-size: 2em; font-weight: bold">
+            <center>{{ this.$store.state.email }}</center>
+          </div>
+          <br />
           <v-card-actions>
             <v-btn
               class="mx-0"
@@ -139,29 +126,6 @@ export default {
   data() {
     return {
       theBestEver: "The Best Ever",
-      items: [
-        {
-          src: require("../assets/LNC-designer.png"),
-        },
-        {
-          src: require("../assets/lnc-interior.jpeg"),
-        },
-        {
-          src: require("../assets/lnc-interior3.jpeg"),
-        },
-        {
-          src: require("../assets/lnc-interior4.jpeg"),
-        },
-        {
-          src: require("../assets/lnc-interior2.jpeg"),
-        },
-        {
-          src: require("../assets/lnc-interior5.jpeg"),
-        },
-        {
-          src: require("../assets/lnc-interior6.jpeg"),
-        },
-      ],
     };
   },
 };

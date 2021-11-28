@@ -172,7 +172,7 @@ export default {
             // displayName = null 의 결과가 나와 홈화면에서 유저이름이 나오지 않는다.
             // 이 부분은 좀 더 스터디가 필요하다.
             this.$store.dispatch("getCurrentUser");
-            this.$router.push({ name: "Home" });
+            this.$router.push({ name: "Welcome" });
           }, 2200);
         })
         .catch((err) => {
