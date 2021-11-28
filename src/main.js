@@ -9,6 +9,8 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
+window.Kakao.init("74f6a08cf4c9c151b326d1560bc92161");
+
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
 

@@ -135,7 +135,20 @@ export default {
       this.$store.dispatch("getCurrentUser");
     },
     kakaoLogin() {
-      console.log("kakao login test");
+      window.Kakao.Auth.login({
+        scope: "profile_nickname, account_email, talk_message",
+        success: function (authObj) {
+          console.log(authObj);
+          window.Kakao.API.request({
+            url: "/v2/user/me",
+            success: (res) => {
+              const kakao_account = res.kakao_account;
+              console.log(kakao_account.email);
+            },
+          });
+        },
+      });
+      this.$router.push({ name: "Home" });
     },
   },
 };

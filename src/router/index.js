@@ -146,8 +146,8 @@ router.beforeEach((to, from, next) => {
   } else if (
     (!isAuthenticated && to.name === "Booking") ||
     (!isAuthenticated && to.name === "BookingCheck") ||
-    (!isAuthenticated && to.name === "Master") ||
-    (!isAuthenticated && to.name === "Welcome")
+    (!isAuthenticated && to.name === "Master")
+    // (!isAuthenticated && to.name === "Welcome")
   ) {
     next("/login");
   } else {
