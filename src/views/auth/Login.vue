@@ -38,7 +38,7 @@
           >
             <b> 로그인</b>
           </v-btn>
-          <v-btn class="my-2" color="#ffe812" block @click="test">
+          <v-btn class="my-2" color="#ffe812" block @click="kakaoLogin">
             <Icon icon="vs:kakaotalk" />&nbsp;<b> 카카오계정으로 로그인</b>
           </v-btn>
           <v-btn class="my-1" color="#dd4b39" dark block @click="googleLogin">
@@ -88,15 +88,13 @@ export default {
       required: (value) => !!value || "비밀번호가 필요합니다.",
       min: (v) => v.length >= 8 || "비밀번호는 최소 8자 이상입니다",
     },
+    kakaoId: "",
     kakaoEmail: "",
     kakaoNickname: "",
-    createKakaoUser: false,
+    isKakaoLogin: false,
+    phoneNumber: "",
   }),
-
   methods: {
-    test() {
-      this.kakaoLogin();
-    },
     validate() {
       if (this.$refs.form.validate()) {
         return this.submit();
@@ -150,36 +148,56 @@ export default {
             url: "/v2/user/me",
             success: (res) => {
               const kakao_account = res.kakao_account;
+              this.kakaoId = kakao_account.id;
               this.kakaoEmail = kakao_account.email;
               this.kakaoNickname = kakao_account.profile.nickname;
-              Swal.fire({
-                html: "예약서비스 사용을 위한 휴대폰 번호를 입력해주세요",
-                input: "number",
-              }).then((data) => {
-                if (data.value.length > 10 && data.value.length < 12) {
-                  firebase
-                    .auth()
-                    .createUserWithEmailAndPassword(this.kakaoEmail, data.value)
-                    .then((userData) => {
-                      userData.user.updateProfile({
-                        displayName: this.kakaoNickname,
-                      });
-                      this.createKakaoUser = true;
-                      console.log(this.createKakaoUser);
-                    })
-                    .catch(() => {
-                      console.log("홈으로 보내야함. 이미 가입되있으니깐!!");
+              const db = firebase.firestore();
+              db.collection("users")
+                .where("email", "==", this.kakaoEmail)
+                .get()
+                .then((doc) => {
+                  if (doc.empty) {
+                    console.log("신규가입");
+                    Swal.fire({
+                      html: "예약서비스 사용을 위한 휴대폰 번호를 입력해주세요",
+                      input: "number",
+                    }).then((data) => {
+                      this.phoneNumber = data.value;
+                      if (data.value.length > 10 && data.value.length < 12) {
+                        firebase
+                          .auth()
+                          .createUserWithEmailAndPassword(
+                            this.kakaoEmail,
+                            data.value
+                          )
+                          .then((userData) => {
+                            userData.user.updateProfile({
+                              displayName: this.kakaoNickname,
+                            });
+
+                            db.collection("users").doc(userData.user.uid).set({
+                              name: this.kakaoNickname,
+                              phoneNumber: data.value,
+                              email: this.kakaoEmail,
+                            });
+                          })
+                          .catch((error) => {
+                            console.log(error);
+                          });
+                      } else {
+                        Swal.fire({
+                          position: "center",
+                          icon: "warning",
+                          title: "잘못된 입력입니다",
+                          showConfirmButton: false,
+                          timer: 2000,
+                        });
+                      }
                     });
-                } else {
-                  Swal.fire({
-                    position: "center",
-                    icon: "warning",
-                    title: "잘못된 입력입니다",
-                    showConfirmButton: false,
-                    timer: 2000,
-                  });
-                }
-              });
+                  } else {
+                    console.log("회원임");
+                  }
+                });
             },
           });
         },

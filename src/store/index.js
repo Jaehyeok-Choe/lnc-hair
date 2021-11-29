@@ -53,9 +53,11 @@ export default new Vuex.Store({
           const userInfo = firebase.auth().currentUser;
           commit("setUserProfile", userInfo);
           commit("setUserLoginOn");
+          console.log("getCurrentUser is working");
         } else {
           commit("emptyUserProfile");
           commit("setUserLoginOff");
+          console.log("getCurrentUser not working");
         }
       });
     },
