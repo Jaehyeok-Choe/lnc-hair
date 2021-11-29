@@ -24,7 +24,6 @@
             :type="show1 ? 'text' : 'password'"
             name="input-10-1"
             label="비밀번호"
-            hint="At least 8 characters"
             counter
             @click:append="show1 = !show1"
           ></v-text-field>
@@ -39,7 +38,7 @@
           >
             <b> 로그인</b>
           </v-btn>
-          <v-btn class="my-2" color="#ffe812" block @click="kakaoLogin">
+          <v-btn class="my-2" color="#ffe812" block @click="test">
             <Icon icon="vs:kakaotalk" />&nbsp;<b> 카카오계정으로 로그인</b>
           </v-btn>
           <v-btn class="my-1" color="#dd4b39" dark block @click="googleLogin">
@@ -79,19 +78,25 @@ export default {
     // email val
     email: "",
     emailRules: [
-      (v) => !!v || "E-mail is required",
-      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      (v) => !!v || "이메일은 필수 항목입니다",
+      (v) => /.+@.+\..+/.test(v) || "이메일이 유효해야 합니다",
     ],
     // password val
     show1: false,
     password: "",
     rules: {
-      required: (value) => !!value || "Password is required.",
-      min: (v) => v.length >= 8 || "Min 8 characters",
+      required: (value) => !!value || "비밀번호가 필요합니다.",
+      min: (v) => v.length >= 8 || "비밀번호는 최소 8자 이상입니다",
     },
+    kakaoEmail: "",
+    kakaoNickname: "",
+    createKakaoUser: false,
   }),
 
   methods: {
+    test() {
+      this.kakaoLogin();
+    },
     validate() {
       if (this.$refs.form.validate()) {
         return this.submit();
@@ -111,8 +116,8 @@ export default {
           console.log(errorCode, errorMessage);
           Swal.fire({
             icon: "error",
-            title: "Login Failed",
-            text: "Password is invalid or the user does not have a password.",
+            title: "로그인 실패",
+            text: "암호가 잘못되었거나 사용자에게 암호가 없습니다",
             footer: "",
           });
         });
@@ -121,6 +126,7 @@ export default {
     resetValidation() {
       this.$refs.form.resetValidation();
     },
+    // 구글로그인
     googleLogin() {
       const provider = new firebase.auth.GoogleAuthProvider();
       firebase
@@ -134,6 +140,7 @@ export default {
         });
       this.$store.dispatch("getCurrentUser");
     },
+    // 카카오로그인
     kakaoLogin() {
       window.Kakao.Auth.login({
         scope: "profile_nickname, account_email, talk_message",
@@ -143,12 +150,40 @@ export default {
             url: "/v2/user/me",
             success: (res) => {
               const kakao_account = res.kakao_account;
-              console.log(kakao_account.email);
+              this.kakaoEmail = kakao_account.email;
+              this.kakaoNickname = kakao_account.profile.nickname;
+              Swal.fire({
+                html: "예약서비스 사용을 위한 휴대폰 번호를 입력해주세요",
+                input: "number",
+              }).then((data) => {
+                if (data.value.length > 10 && data.value.length < 12) {
+                  firebase
+                    .auth()
+                    .createUserWithEmailAndPassword(this.kakaoEmail, data.value)
+                    .then((userData) => {
+                      userData.user.updateProfile({
+                        displayName: this.kakaoNickname,
+                      });
+                      this.createKakaoUser = true;
+                      console.log(this.createKakaoUser);
+                    })
+                    .catch(() => {
+                      console.log("홈으로 보내야함. 이미 가입되있으니깐!!");
+                    });
+                } else {
+                  Swal.fire({
+                    position: "center",
+                    icon: "warning",
+                    title: "잘못된 입력입니다",
+                    showConfirmButton: false,
+                    timer: 2000,
+                  });
+                }
+              });
             },
           });
         },
       });
-      this.$router.push({ name: "Home" });
     },
   },
 };

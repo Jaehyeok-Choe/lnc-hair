@@ -9,6 +9,12 @@
       </v-card-text>
       <v-divider class="mx-4"></v-divider>
       <v-card-text class="text-center">
+        <v-btn color="yellow" block :to="{ name: 'Booking' }"
+          ><b>예약하기</b></v-btn
+        >
+      </v-card-text>
+      <v-divider class="mx-4"></v-divider>
+      <v-card-text class="text-center">
         <v-btn color="yellow" block><b>방문자통계</b></v-btn>
       </v-card-text>
       <v-divider class="mx-4"></v-divider>

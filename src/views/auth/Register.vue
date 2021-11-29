@@ -87,39 +87,39 @@ export default {
     // name val
     name: "",
     nameRules: [
-      (v) => !!v || "Name is required",
-      (v) => (v && v.length <= 10) || "Name must be less than 10 characters",
+      (v) => !!v || "이름은 필수 입력 사항입니다",
+      (v) => (v && v.length <= 10) || "이름은 10자 미만이어야 합니다",
     ],
     // phone number val
     phoneNumber: null,
     phoneNumberRules: [
-      (v) => !!v || "Phone number is required",
-      (v) => (v && v.length == 11) || "Phone number needs to be 11 digits",
-      (v) => !isNaN(v) || "Enter numbers only",
+      (v) => !!v || "전화번호는 필수 입력 사항입니다",
+      (v) => (v && v.length == 11) || "전화번호는 11자리여야 합니다",
+      (v) => !isNaN(v) || "숫자만 입력",
     ],
     // email val
     email: "",
     emailRules: [
-      (v) => !!v || "E-mail is required",
-      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      (v) => !!v || "이메일은 필수 입력 사항입니다",
+      (v) => /.+@.+\..+/.test(v) || "이메일이 유효해야 합니다",
     ],
     // password val
     show1: false,
     password: "",
     rules: {
-      required: (value) => !!value || "Password is required",
-      min: (v) => v.length >= 8 || "Min 8 characters",
+      required: (value) => !!value || "비밀번호는 필수 입력 사항입니다",
+      min: (v) => v.length >= 8 || "비밀번호는 최소 8자리여야 합니다",
     },
     // password confirm val
     show2: false,
     passwordConfirm: "",
-    passwordRules: [(v) => !!v || "Password confirm is required"],
+    passwordRules: [(v) => !!v || "비밀번호 재확인은 필수 입력 사항입니다"],
   }),
 
   methods: {
     validate() {
       if (this.password != this.passwordConfirm) {
-        alert("Password mush match");
+        alert("비밀번호가 일치하지 않습니다");
         return false;
       }
       if (this.$refs.form.validate()) {
@@ -160,8 +160,7 @@ export default {
 
           Swal.fire({
             icon: "success",
-            title:
-              "Congratulations!<br/> Your account has been successfully created.",
+            title: "회원가입 완료",
             showConfirmButton: false,
             timer: 2000,
           });
@@ -179,7 +178,7 @@ export default {
           console.log(err);
           Swal.fire({
             icon: "error",
-            title: "email address is already in use by another account.",
+            title: "이미 다른 계정에서 사용 중인 이메일 입니다.",
             showConfirmButton: true,
           });
         });
