@@ -92,7 +92,6 @@ export default {
     kakaoEmail: "",
     kakaoNickname: "",
     isKakaoLogin: false,
-    phoneNumber: "",
   }),
   methods: {
     validate() {
@@ -139,8 +138,8 @@ export default {
       this.$store.dispatch("getCurrentUser");
     },
     // 카카오로그인
-    kakaoLogin() {
-      window.Kakao.Auth.login({
+    async kakaoLogin() {
+      await window.Kakao.Auth.login({
         scope: "profile_nickname, account_email, talk_message",
         success: function (authObj) {
           console.log(authObj);
@@ -157,12 +156,12 @@ export default {
                 .get()
                 .then((doc) => {
                   if (doc.empty) {
-                    console.log("신규가입");
+                    console.log("New with kakao account");
                     Swal.fire({
-                      html: "예약서비스 사용을 위한 휴대폰 번호를 입력해주세요",
+                      icon: "info",
+                      html: `<p style="font-size:90%;">예약서비스 사용을 위한 휴대폰 번호를 입력해주세요</p>`,
                       input: "number",
                     }).then((data) => {
-                      this.phoneNumber = data.value;
                       if (data.value.length > 10 && data.value.length < 12) {
                         firebase
                           .auth()
@@ -184,6 +183,30 @@ export default {
                           .catch((error) => {
                             console.log(error);
                           });
+                        this.isKakaoLogin = true;
+                        if (this.isKakaoLogin) {
+                          let timerInterval;
+                          Swal.fire({
+                            title: "로그인",
+                            html: `<p style="font-size:90%;">카카오계정으로 로그인 진행중</p>`,
+                            timer: 2000,
+                            timerProgressBar: true,
+                            didOpen: () => {
+                              Swal.showLoading();
+                            },
+                            willClose: () => {
+                              clearInterval(timerInterval);
+                            },
+                          }).then((result) => {
+                            /* Read more about handling dismissals below */
+                            if (result.dismiss === Swal.DismissReason.timer) {
+                              console.log("I was closed by the timer");
+                            }
+                          });
+                          setTimeout(() => {
+                            window.location.href = "/";
+                          }, 2000);
+                        }
                       } else {
                         Swal.fire({
                           position: "center",
@@ -195,8 +218,42 @@ export default {
                       }
                     });
                   } else {
-                    console.log("회원임");
+                    console.log("Customer with kakao account");
+                    let timerInterval;
+                    Swal.fire({
+                      title: "로그인",
+                      html: `<p style="font-size:90%;">카카오계정으로 로그인 진행중</p>`,
+                      timer: 2000,
+                      timerProgressBar: true,
+                      didOpen: () => {
+                        Swal.showLoading();
+                      },
+                      willClose: () => {
+                        clearInterval(timerInterval);
+                      },
+                    }).then((result) => {
+                      /* Read more about handling dismissals below */
+                      if (result.dismiss === Swal.DismissReason.timer) {
+                        console.log("I was closed by the timer");
+                      }
+                    });
+                    setTimeout(() => {
+                      window.location.href = "/";
+                    }, 2000);
                   }
+                });
+              db.collection("users")
+                .where("email", "==", this.kakaoEmail)
+                .get()
+                .then((querySnapshot) => {
+                  querySnapshot.forEach((doc) => {
+                    firebase
+                      .auth()
+                      .signInWithEmailAndPassword(
+                        this.kakaoEmail,
+                        doc.data().phoneNumber
+                      );
+                  });
                 });
             },
           });

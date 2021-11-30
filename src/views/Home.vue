@@ -164,6 +164,9 @@ export default {
       ],
     };
   },
+  created() {
+    this.$store.dispatch("getCurrentUser");
+  },
 };
 </script>
 <style scoped>

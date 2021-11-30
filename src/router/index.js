@@ -123,6 +123,24 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "master" */ "../views/master/Master.vue"),
   },
+  {
+    path: "/userProfile",
+    name: "UserProfile",
+
+    component: () =>
+      import(
+        /* webpackChunkName: "userProfile" */ "../views/master/UserProfile.vue"
+      ),
+  },
+  {
+    path: "/bookingList",
+    name: "BookingList",
+
+    component: () =>
+      import(
+        /* webpackChunkName: "bookingList" */ "../views/master/BookingList.vue"
+      ),
+  },
 ];
 
 const router = new VueRouter({
