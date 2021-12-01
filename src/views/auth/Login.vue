@@ -203,9 +203,9 @@ export default {
                               console.log("I was closed by the timer");
                             }
                           });
-                          setTimeout(() => {
-                            window.location.href = "/";
-                          }, 2000);
+                          // setTimeout(() => {
+                          //   window.location.href = "/";
+                          // }, 2000);
                         }
                       } else {
                         Swal.fire({

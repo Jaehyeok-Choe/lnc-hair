@@ -2,8 +2,7 @@
   <v-footer color="black" padless>
     <v-col class="white--text" cols="12">
       <p style="font-size: 7px">
-        Copyright © {{ new Date().getFullYear() }} Jaehyeok Choe. All rights
-        reserved.
+        Copyright © {{ new Date().getFullYear() }} L.N.C All rights reserved.
       </p>
       <center>
         <v-btn color="black" :to="{ name: 'Home' }">

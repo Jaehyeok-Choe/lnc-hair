@@ -29,7 +29,13 @@
             class="grey--text ms-4"
             v-if="this.$store.state.isLogin === true"
           >
-            안녕하세요 {{ this.$store.state.userDisplayName }} 고객님!
+            안녕하세요
+            <font color="black" style="background-color: #ffe400">
+              <b
+                >&nbsp; {{ this.$store.state.userDisplayName }}&nbsp;&nbsp;</b
+              ></font
+            >
+            고객님!
           </div>
           <div v-else>&nbsp; {{ theBestEver }}</div>
         </v-row>

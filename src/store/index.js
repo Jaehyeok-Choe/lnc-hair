@@ -16,10 +16,12 @@ export default new Vuex.Store({
     phoneNumber: "",
     // 관리자권한
     masterAccount: "",
+    masterAccount2: "",
   },
   getters: {
     email: (state) => state.email,
     masterAccount: (state) => state.masterAccount,
+    masterAccount2: (state) => state.masterAccount2,
   },
   mutations: {
     setUserLoginOn(state) {
@@ -44,6 +46,7 @@ export default new Vuex.Store({
     },
     setMasterAccount(state) {
       state.masterAccount = "tbeben77@gmail.com";
+      state.masterAccount2 = "lya@gmail.com";
     },
   },
   actions: {

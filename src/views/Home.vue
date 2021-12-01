@@ -47,49 +47,73 @@
             class="grey--text ms-4"
             v-if="this.$store.state.isLogin === true"
           >
-            안녕하세요 {{ this.$store.state.userDisplayName }} 고객님!
+            <div
+              v-if="
+                this.$store.state.email === this.$store.state.masterAccount ||
+                this.$store.state.email === this.$store.state.masterAccount2
+              "
+            >
+              안녕하세요 관리자님!
+            </div>
+            <div v-else>
+              안녕하세요
+              <font color="black" style="background-color: #ffe400">
+                <b
+                  >&nbsp; {{ this.$store.state.userDisplayName }}&nbsp;&nbsp;</b
+                ></font
+              >
+              고객님!
+            </div>
           </div>
           <div v-else>&nbsp; {{ theBestEver }}</div>
         </v-row>
         <div class="my-4 text-subtitle-1">💈 • MEN's Hair & M -up</div>
         <div>
           남성전문 1인 헤어&메이크업샵으로 <br />
-          "맨즈 프리미엄 토탈살롱" 입니다 :) <br />남자들의 편안한 미용실문화를
-          추구합니다 !!<br />
-          원하시는 스타일, 컴플렉스 등의 요구사항을 <br />
-          편하게 말씀해주세요 🧡<br />
-          <v-card-actions>
-            <v-btn
-              class="mx-0"
-              color="yellow"
-              large
-              :to="{ name: 'Login' }"
-              v-if="this.$store.state.isLogin === false"
-              block
-            >
-              <b>예약하기</b>
-            </v-btn>
-            <v-btn
-              class="mx-0"
-              color="yellow"
-              large
-              :to="{ name: 'Master' }"
-              v-else-if="
-                this.$store.state.email === this.$store.state.masterAccount
-              "
-              block
-              ><b>M A S T E R</b></v-btn
-            >
-            <v-btn
-              class="mx-0"
-              color="yellow"
-              large
-              :to="{ name: 'Booking' }"
-              v-else
-              block
-              ><b>예약하기</b></v-btn
-            >
-          </v-card-actions>
+          "맨즈 프리미엄 토탈살롱" 입니다 :) <br />
+          스타일 요구사항을 편하게 말씀해주세요 😝😊<br />
+
+          <v-btn
+            class="mx-0"
+            color="yellow"
+            large
+            :to="{ name: 'Login' }"
+            v-if="this.$store.state.isLogin === false"
+            block
+          >
+            <b>예약하기</b>
+          </v-btn>
+          <v-btn
+            class="my-1 mb-3 mt-2"
+            color="yellow"
+            large
+            :to="{ name: 'Master' }"
+            v-else-if="
+              this.$store.state.email === this.$store.state.masterAccount ||
+              this.$store.state.email === this.$store.state.masterAccount2
+            "
+            block
+            ><b>M A S T E R</b></v-btn
+          >
+          <v-btn
+            class="my-1 mb-3 mt-2"
+            color="yellow"
+            large
+            block
+            :to="{ name: 'Booking' }"
+            v-else
+            ><b>예약하기</b></v-btn
+          >
+          <v-btn
+            class="mx-0 mb-2"
+            color="success"
+            :to="{ name: 'BookingCheck' }"
+            large
+            block
+            v-if="this.$store.state.isLogin"
+            ><b> 예약내역</b></v-btn
+          >
+
           <v-chip class="mt-2 mb-1" color="pink" label text-color="white">
             <v-icon left small> mdi-phone </v-icon>
             <a id="call" href="tel:010-6609-4610">010-6009-4610</a>&nbsp;&nbsp;
@@ -166,6 +190,7 @@ export default {
   },
   created() {
     this.$store.dispatch("getCurrentUser");
+    this.$store.dispatch("getMasterAccount");
   },
 };
 </script>

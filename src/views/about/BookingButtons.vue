@@ -69,6 +69,7 @@ export default {
         false,
       ],
       showUnavailableMsg: "예약이 불가능한 날짜입니다.",
+      day: "",
     };
   },
   created() {
@@ -150,15 +151,29 @@ export default {
     },
     // form validation
     confirmBooking(date, hour) {
+      // 요일 가져오는 코드
+      const d = new Date(date);
+      this.day = d.getDay();
+      if (this.day === 0) {
+        this.day = "일요일";
+      } else if (this.day === 1) {
+        this.day = "월요일";
+      } else if (this.day === 2) {
+        this.day = "화요일";
+      } else if (this.day === 3) {
+        this.day = "수요일";
+      } else if (this.day === 4) {
+        this.day = "목요일";
+      } else if (this.day === 5) {
+        this.day = "금요일";
+      } else if (this.day === 6) {
+        this.day = "토요일";
+      }
       Swal.fire({
         title: "예약확인",
-        html:
-          "방문날짜: <b>" +
-          date +
-          "</b><br>방문시간: <b>" +
-          hour +
-          ":00</b>" +
-          "<br><br><p style='color:red; font-size:15px;'>확인 버튼을 누르시면 예약이 완료됩니다.</p>",
+        html: `<p style='font-size:25px;'><b>${date} ${this.day}<br> (${hour}:00)</b></p><br>
+              <p style='color:red; font-size:15px;'>확인 버튼을 누르시면 예약이 완료됩니다.</p>
+        `,
         showDenyButton: true,
         confirmButtonText: "확인",
         denyButtonText: `취소`,

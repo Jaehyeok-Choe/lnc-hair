@@ -137,6 +137,7 @@ export default {
       } catch (error) {
         console.log(error);
       }
+      // 카카오 로그아웃
     },
   },
 };

@@ -1,6 +1,11 @@
 <template>
   <!-- 관리자 권한일때 -->
-  <div v-if="adminCheck === this.$store.state.masterAccount">
+  <div
+    v-if="
+      adminCheck === this.$store.state.masterAccount ||
+      adminCheck === this.$store.state.masterAccount2
+    "
+  >
     <BookingCheckAdmin></BookingCheckAdmin>
   </div>
   <!-- 일반유저 권한일때 -->
@@ -12,7 +17,8 @@
           <v-col cols="12">
             <v-card :color="buttonColor[i - 1]" dark>
               <v-card-title class="text-h5"
-                >{{ bookingDate[i - 1] }} <v-spacer></v-spacer>
+                >{{ bookingDate[i - 1] }} / {{ dayArr[i - 1] }}
+                <v-spacer></v-spacer>
                 <div v-if="buttonColor[i - 1] === 'success'">
                   <v-btn
                     @click="
@@ -24,7 +30,11 @@
               >
 
               <v-card-subtitle
-                >방문시간: {{ bookingTime[i - 1] }}:00</v-card-subtitle
+                ><b>
+                  <font :color="timeColor[i - 1]">
+                    방문시간: {{ bookingTime[i - 1] }}:00</font
+                  ></b
+                ></v-card-subtitle
               >
             </v-card>
           </v-col>
@@ -62,6 +72,9 @@ export default {
       showBookingHistory: false,
       adminCheck: "",
       showNoDataMsg: false,
+      day: "",
+      dayArr: [],
+      timeColor: [],
     };
   },
   created() {
@@ -80,15 +93,35 @@ export default {
         querySnapshot.forEach((doc) => {
           this.bookingDate.push(doc.data().bookingDate);
           this.bookingTime.push(doc.data().bookingTime);
-          this.name.push(doc.data().name);
+          // 요일 가져오는 코드
+          const d = new Date(doc.data().bookingDate);
+          this.day = d.getDay();
+          if (this.day === 0) {
+            this.day = "일요일";
+          } else if (this.day === 1) {
+            this.day = "월요일";
+          } else if (this.day === 2) {
+            this.day = "화요일";
+          } else if (this.day === 3) {
+            this.day = "수요일";
+          } else if (this.day === 4) {
+            this.day = "목요일";
+          } else if (this.day === 5) {
+            this.day = "금요일";
+          } else if (this.day === 6) {
+            this.day = "토요일";
+          }
+          this.dayArr.push(this.day);
           // 아래는 예약내역중 오늘날짜 이전의 값을 담은 카드들은 색깔을 회색으로 바꾸기 위한 코드 작성
           const temp = doc.data().bookingDate;
           const splitedDate = temp.split("-");
           const bookingDate = splitedDate[0] + splitedDate[1] + splitedDate[2];
           if (bookingDate >= this.getCurrentDate()) {
             this.buttonColor.push("success");
+            this.timeColor.push("yellow");
           } else {
             this.buttonColor.push("grey");
+            this.timeColor.push("grey");
           }
 
           this.count++;
@@ -108,9 +141,9 @@ export default {
   methods: {
     getCurrentDate() {
       const current = new Date();
-      const date = `${current.getFullYear()}${
-        current.getMonth() + 1
-      }${current.getDate()}`;
+      const temp = current.toISOString().split("T")[0];
+      const splitedDate = temp.split("-");
+      const date = splitedDate[0] + splitedDate[1] + splitedDate[2];
       return date;
     },
     cancelBooking(date, time) {

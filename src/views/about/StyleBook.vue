@@ -1,7 +1,12 @@
 <template>
   <v-container>
     <v-card class="mx-auto my-2" max-width="400" elevation="24" outlined shaped>
-      <div v-if="this.adminCheck === this.$store.state.masterAccount">
+      <div
+        v-if="
+          this.adminCheck === this.$store.state.masterAccount ||
+          this.adminCheck === this.$store.state.masterAccount2
+        "
+      >
         <div class="pa-5">
           <v-btn @click="showFileUpload" class="mx-0" color="yellow" block
             ><b>Upload</b></v-btn
