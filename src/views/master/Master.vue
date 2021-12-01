@@ -27,6 +27,12 @@
       </v-card-text>
       <v-divider class="mx-4"></v-divider>
       <v-card-text class="text-center">
+        <v-btn color="yellow" block :to="{ name: 'Map' }"
+          ><b>오시는길</b></v-btn
+        >
+      </v-card-text>
+      <v-divider class="mx-4"></v-divider>
+      <v-card-text class="text-center">
         <v-btn color="yellow" block :to="{ name: 'UserProfile' }"
           ><b>회원보기</b></v-btn
         >

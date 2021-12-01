@@ -153,12 +153,16 @@ router.beforeEach((to, from, next) => {
   const isAuthenticated = firebase.auth().currentUser;
   const userEmail = store.getters.email;
   const masterEmail = store.getters.masterAccount;
+  const masterEmail2 = store.getters.masterAccount2;
 
   if (
     (isAuthenticated && to.name === "Login") ||
     (isAuthenticated && to.name === "Register") ||
     (isAuthenticated && to.name === "ResetPassword") ||
-    (isAuthenticated && to.name === "Master" && userEmail != masterEmail)
+    (isAuthenticated &&
+      to.name === "Master" &&
+      userEmail != masterEmail &&
+      userEmail != masterEmail2)
   ) {
     next("/");
   } else if (
