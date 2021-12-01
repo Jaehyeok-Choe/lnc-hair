@@ -219,9 +219,9 @@ export default {
     },
     getCurrentDate() {
       const current = new Date();
-      const date = `${current.getFullYear()}${
-        current.getMonth() + 1
-      }${current.getDate()}`;
+      const temp = current.toISOString().split("T")[0];
+      const splitedDate = temp.split("-");
+      const date = splitedDate[0] + splitedDate[1] + splitedDate[2];
       return date;
     },
     // 예약하려는 시간이 현재시간 기준 전이면 예약 불가능하게 하는 메서드
@@ -286,15 +286,14 @@ export default {
           });
         // 예약불가메세지 비우기
         this.showUnavailableMsg = "";
-        // 캘린더에서 선택된 날짜가 현재날짜일때만 예약하려는 시간에 따라 버튼 클릭불가하게 하는 코드
-        let today = new Date();
-        let date =
-          today.getFullYear() +
-          "-" +
-          (today.getMonth() + 1) +
-          "-" +
-          today.getDate();
-        if (paramSelectedDate === date) {
+        // 캘린더에서 선택된 날짜가 현재 날짜일 때만!
+        // 예약하려는 시간이 현재 시간보다 이전인 시간값을 가진 버튼 클릭불가하게 하는 코드
+        const tempParamSelectedDate = paramSelectedDate.split("-");
+        const splitedParamSelectedDate =
+          tempParamSelectedDate[0] +
+          tempParamSelectedDate[1] +
+          tempParamSelectedDate[2];
+        if (splitedParamSelectedDate === this.getCurrentDate()) {
           this.disableUnavailabeTimeBtn();
         }
       }
