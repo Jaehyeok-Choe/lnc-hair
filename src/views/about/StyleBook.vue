@@ -12,7 +12,9 @@
             ><b>Upload</b></v-btn
           >
         </div>
-        <div v-if="uploadBox"><upload-image></upload-image></div>
+        <div v-if="uploadBox">
+          <upload-image></upload-image>
+        </div>
         <div v-else></div>
       </div>
 

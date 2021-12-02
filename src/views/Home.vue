@@ -74,7 +74,7 @@
           스타일 요구사항을 편하게 말씀해주세요 😝😊<br />
 
           <v-btn
-            class="mx-0"
+            class="my-1 mb-3 mt-2"
             color="yellow"
             large
             :to="{ name: 'Login' }"
