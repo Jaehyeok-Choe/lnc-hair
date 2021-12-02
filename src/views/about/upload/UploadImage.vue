@@ -89,9 +89,9 @@ export default {
           showConfirmButton: false,
           timer: 1000,
         });
-        setTimeout(() => {
-          location.reload();
-        }, 1000);
+        // setTimeout(() => {
+        //   location.reload();
+        // }, 1000);
       } else {
         Swal.fire({
           position: "center",

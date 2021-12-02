@@ -18,7 +18,11 @@
         <div v-else></div>
       </div>
 
-      <v-row dense>
+      <div v-for="i in test" :key="i">
+        <v-img :src="i"></v-img>
+      </div>
+
+      <!-- <v-row dense>
         <v-col v-for="card in cards" :key="card.title" :cols="card.flex">
           <v-card>
             <v-img
@@ -31,19 +35,19 @@
             </v-img>
 
             <v-card-actions>
-              <v-spacer></v-spacer>
+              <v-spacer></v-spacer> -->
 
-              <!-- <v-btn icon>
+      <!-- <v-btn icon>
                 <v-icon>mdi-heart</v-icon>
               </v-btn>
 
               <v-btn icon>
                 <v-icon>mdi-share-variant</v-icon>
               </v-btn> -->
-            </v-card-actions>
+      <!-- </v-card-actions>
           </v-card>
         </v-col>
-      </v-row>
+      </v-row> -->
     </v-card>
   </v-container>
 </template>
@@ -56,14 +60,10 @@ import "firebase/compat/firestore";
 // import Swal from "sweetalert2";
 export default {
   components: { UploadImage },
-  created() {
-    this.$store.dispatch("getMasterAccount");
-    const user = firebase.auth().currentUser;
-    this.adminCheck = user.email;
-  },
   data: () => ({
     adminCheck: "",
     uploadBox: false,
+    test: [],
     cards: [
       {
         title: "a",
@@ -92,6 +92,31 @@ export default {
       },
     ],
   }),
+  created() {
+    this.$store.dispatch("getMasterAccount");
+    const user = firebase.auth().currentUser;
+    this.adminCheck = user.email;
+    // 파이어베이스 스토리지에서 한 폴더에 대한 전체 이미지 가져오는 코드
+    // Create a reference under which you want to list
+    var storageRef = firebase.storage().ref("image");
+
+    // Find all the prefixes and items.
+    storageRef
+      .listAll()
+      .then((res) => {
+        res.items.forEach((itemRef) => {
+          // All the items under listRef.
+
+          itemRef.getDownloadURL().then((url) => {
+            this.test.push(url);
+          });
+        });
+      })
+      .catch(function (error) {
+        // Uh-oh, an error occurred!
+        console.log(error);
+      });
+  },
   methods: {
     showFileUpload() {
       this.uploadBox = !this.uploadBox;
