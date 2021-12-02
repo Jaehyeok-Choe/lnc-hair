@@ -17,6 +17,10 @@ export default new Vuex.Store({
     // 관리자권한
     masterAccount: "",
     masterAccount2: "",
+    // PC의 표준시간대 설정 관계 없이 한국 시간기준의 날짜를 담는 변수
+    koreaDate: "",
+    // 지정된 예약날짜의 요일 담는 변수
+    bookingDay: "",
   },
   getters: {
     email: (state) => state.email,
@@ -47,6 +51,14 @@ export default new Vuex.Store({
     setMasterAccount(state) {
       state.masterAccount = "tbeben77@gmail.com";
       state.masterAccount2 = "lya@gmail.com";
+    },
+    // PC의 표준시간대 설정 관계 없이 한국 시간기준의 날짜를 세팅
+    setKoreaDate(state, payload) {
+      state.koreaDate = payload;
+    },
+    // 지정된 예약날짜의 요일을 세팅
+    setBookingDay(state, payload) {
+      state.bookingDay = payload;
     },
   },
   actions: {
@@ -81,6 +93,40 @@ export default new Vuex.Store({
     },
     getMasterAccount({ commit }) {
       commit("setMasterAccount");
+    },
+    // PC의 표준시간대 설정 관계 없이 한국 시간기준의 날짜를 세팅
+    getKoreaDate({ commit }) {
+      // 1. 현재 시간(Locale)
+      const curr = new Date();
+
+      // 2. UTC 시간 계산
+      const utc = curr.getTime() + curr.getTimezoneOffset() * 60 * 1000;
+
+      // 3. UTC to KST (UTC + 9시간)
+      const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+      const kr_curr = new Date(utc + KR_TIME_DIFF);
+      commit("setKoreaDate", kr_curr);
+    },
+    // 지정된 예약날짜의 요일을 세팅
+    getBookingDay({ commit }, date) {
+      const d = new Date(date);
+      let day = d.getDay();
+      if (day === 0) {
+        day = "일요일";
+      } else if (day === 1) {
+        day = "월요일";
+      } else if (day === 2) {
+        day = "화요일";
+      } else if (day === 3) {
+        day = "수요일";
+      } else if (day === 4) {
+        day = "목요일";
+      } else if (day === 5) {
+        day = "금요일";
+      } else if (day === 6) {
+        day = "토요일";
+      }
+      commit("setBookingDay", day);
     },
   },
   modules: {},

@@ -151,24 +151,9 @@ export default {
     },
     // form validation
     confirmBooking(date, hour) {
-      // 요일 가져오는 코드
-      const d = new Date(date);
-      this.day = d.getDay();
-      if (this.day === 0) {
-        this.day = "일요일";
-      } else if (this.day === 1) {
-        this.day = "월요일";
-      } else if (this.day === 2) {
-        this.day = "화요일";
-      } else if (this.day === 3) {
-        this.day = "수요일";
-      } else if (this.day === 4) {
-        this.day = "목요일";
-      } else if (this.day === 5) {
-        this.day = "금요일";
-      } else if (this.day === 6) {
-        this.day = "토요일";
-      }
+      // 예약날짜의 요일을 보여주기 위해 요일을 얻는 코드
+      this.$store.dispatch("getBookingDay", date);
+      this.day = this.$store.state.bookingDay;
       Swal.fire({
         title: "예약확인",
         html: `<p style='font-size:25px;'><b>${date} ${this.day}<br> (${hour}:00)</b></p><br>
@@ -218,7 +203,8 @@ export default {
         });
     },
     getCurrentDate() {
-      const current = new Date();
+      this.$store.dispatch("getKoreaDate");
+      const current = this.$store.state.koreaDate;
       const temp = current.toISOString().split("T")[0];
       const splitedDate = temp.split("-");
       const date = splitedDate[0] + splitedDate[1] + splitedDate[2];
