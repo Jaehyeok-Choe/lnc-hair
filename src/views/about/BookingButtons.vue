@@ -119,13 +119,14 @@ export default {
                     input: "number",
                   }).then((data) => {
                     if (data.value.length > 10 && data.value.length < 12) {
-                      this.confirmBooking(date, hour);
                       db.collection("users").doc(userUid).set({
                         name: userInfo.displayName,
                         phoneNumber: data.value,
                         email: userInfo.email,
                         dateCreated: this.getTimeStamp(),
                       });
+                      this.$store.dispatch("getUserPhoneNumber");
+                      this.confirmBooking(date, hour);
                     } else {
                       Swal.fire({
                         position: "center",

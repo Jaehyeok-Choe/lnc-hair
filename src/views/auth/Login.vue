@@ -141,7 +141,7 @@ export default {
     async kakaoLogin() {
       await window.Kakao.Auth.login({
         scope: "profile_nickname, account_email, talk_message",
-        success: function (authObj) {
+        success: (authObj) => {
           console.log(authObj);
           window.Kakao.API.request({
             url: "/v2/user/me",
@@ -200,12 +200,10 @@ export default {
                           }).then((result) => {
                             /* Read more about handling dismissals below */
                             if (result.dismiss === Swal.DismissReason.timer) {
-                              console.log("I was closed by the timer");
+                              this.$store.dispatch("getCurrentUser");
+                              this.$router.push({ name: "Home" });
                             }
                           });
-                          // setTimeout(() => {
-                          //   window.location.href = "/";
-                          // }, 2000);
                         }
                       } else {
                         Swal.fire({
@@ -235,11 +233,9 @@ export default {
                       /* Read more about handling dismissals below */
                       if (result.dismiss === Swal.DismissReason.timer) {
                         console.log("I was closed by the timer");
+                        this.$router.push({ name: "Home" });
                       }
                     });
-                    setTimeout(() => {
-                      window.location.href = "/";
-                    }, 2000);
                   }
                 });
               db.collection("users")

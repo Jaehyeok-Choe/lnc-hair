@@ -14,9 +14,9 @@
         <!-- <v-btn color="black" :to="{ name: 'ContactUs' }">
           <v-icon size="25px" color="white"> mdi-phone </v-icon>
         </v-btn> -->
-        <v-btn color="black" :to="{ name: 'StyleBook' }">
+        <!-- <v-btn color="black" :to="{ name: 'StyleBook' }">
           <v-icon size="25px" color="white"> mdi-image </v-icon>
-        </v-btn>
+        </v-btn> -->
         <v-btn color="black" href="https://www.instagram.com/_nikka.lnc/">
           <v-icon size="25px" color="white"> mdi-instagram </v-icon>
         </v-btn>

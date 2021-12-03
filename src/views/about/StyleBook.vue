@@ -18,36 +18,21 @@
         <div v-else></div>
       </div>
 
-      <div v-for="i in test" :key="i">
-        <v-img :src="i"></v-img>
+      <div v-for="(card, index) in cards" :key="index">
+        <div v-if="index != 0">
+          <v-row>
+            <v-col class="d-flex child-flex">
+              <v-img
+                :src="card.src"
+                class="white--text align-end"
+                gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                height="100%"
+                >{{ card.name }}</v-img
+              >
+            </v-col>
+          </v-row>
+        </div>
       </div>
-
-      <!-- <v-row dense>
-        <v-col v-for="card in cards" :key="card.title" :cols="card.flex">
-          <v-card>
-            <v-img
-              :src="card.src"
-              class="white--text align-end"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="150px"
-            >
-              <v-card-title v-text="card.title"></v-card-title>
-            </v-img>
-
-            <v-card-actions>
-              <v-spacer></v-spacer> -->
-
-      <!-- <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-
-              <v-btn icon>
-                <v-icon>mdi-share-variant</v-icon>
-              </v-btn> -->
-      <!-- </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row> -->
     </v-card>
   </v-container>
 </template>
@@ -63,32 +48,11 @@ export default {
   data: () => ({
     adminCheck: "",
     uploadBox: false,
-    test: [],
+
     cards: [
       {
-        title: "a",
-        src: "https://cdn.vuetifyjs.com/images/cards/house.jpg",
-        flex: 12,
-      },
-      {
-        title: "b",
-        src: "https://cdn.vuetifyjs.com/images/cards/road.jpg",
-        flex: 6,
-      },
-      {
-        title: "c",
-        src: "https://cdn.vuetifyjs.com/images/cards/plane.jpg",
-        flex: 6,
-      },
-      {
-        title: "d",
-        src: "https://picsum.photos/510/300?randomg",
-        flex: 6,
-      },
-      {
-        title: "e",
-        src: "https://picsum.photos/510/300?random",
-        flex: 6,
+        name: [],
+        src: [],
       },
     ],
   }),
@@ -106,13 +70,23 @@ export default {
       .then((res) => {
         res.items.forEach((itemRef) => {
           // All the items under listRef.
-
           itemRef.getDownloadURL().then((url) => {
-            this.test.push(url);
+            //date
+            let date = itemRef.name.slice(-19, -9);
+            let temp = date.split("-");
+            let splitedDate = temp[0] + temp[1] + temp[2];
+            //time
+            let time = itemRef.name.slice(-8);
+            let temp2 = time.split(":");
+            let splitedTime = temp2[0] + temp2[1] + temp2[2];
+            //to show images order by desc
+            let dateTime = splitedDate + splitedTime;
+            console.log(dateTime);
+            this.cards.push({ name: itemRef.name, src: url });
           });
         });
       })
-      .catch(function (error) {
+      .catch((error) => {
         // Uh-oh, an error occurred!
         console.log(error);
       });

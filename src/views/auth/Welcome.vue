@@ -29,14 +29,20 @@
             class="grey--text ms-4"
             v-if="this.$store.state.isLogin === true"
           >
-            안녕하세요 {{ this.$store.state.userDisplayName }} 고객님!
+            안녕하세요
+            <font color="black" style="background-color: #ffe400">
+              <b
+                >&nbsp; {{ this.$store.state.userDisplayName }}&nbsp;&nbsp;</b
+              ></font
+            >
+            고객님!
           </div>
           <div v-else>&nbsp; {{ theBestEver }}</div>
         </v-row>
         <br /><br />
         <div>
           <div style="font-size: 2em; font-weight: bold">
-            <center>회원가입이 완료되었습니다</center>
+            <center>⭐ 회원가입 완료 ⚡</center>
           </div>
           <br />
           <center>회원님의 로그인 아이디는 아래와 같습니다</center>
