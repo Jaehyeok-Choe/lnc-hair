@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container v-if="this.$store.state.email">
     <v-card class="mx-auto my-2" max-width="400" elevation="24" outlined shaped>
       <div
         v-if="
@@ -36,6 +36,14 @@
         </div>
       </div>
     </v-card>
+  </v-container>
+  <v-container v-else>
+    <div>
+      <cneter><h3>로그인이 필요한 페이지입니다.</h3></cneter>
+      <v-btn color="yellow" :to="{ name: 'Login' }" class="mt-3">
+        <b>로그인</b>
+      </v-btn>
+    </div>
   </v-container>
 </template>
 

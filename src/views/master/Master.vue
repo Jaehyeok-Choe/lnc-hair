@@ -19,12 +19,12 @@
           ><b>예약하기(고객)</b></v-btn
         >
       </v-card-text>
-      <!-- <v-divider class="mx-4"></v-divider>
+      <v-divider class="mx-4"></v-divider>
       <v-card-text class="text-center">
         <v-btn color="yellow" block :to="{ name: 'StyleBook' }"
           ><b>스타일북</b></v-btn
         >
-      </v-card-text> -->
+      </v-card-text>
       <v-divider class="mx-4"></v-divider>
       <v-card-text class="text-center">
         <v-btn color="yellow" block :to="{ name: 'Map' }"
