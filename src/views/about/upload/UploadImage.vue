@@ -79,6 +79,7 @@ export default {
           () => {
             uploadWork.snapshot.ref.getDownloadURL().then((url) => {
               console.log("업로드된 경로: ", url);
+              location.reload();
             });
           }
         );
@@ -87,11 +88,8 @@ export default {
           icon: "success",
           title: "Finished!",
           showConfirmButton: false,
-          timer: 1000,
+          timer: 5000,
         });
-        // setTimeout(() => {
-        //   location.reload();
-        // }, 1000);
       } else {
         Swal.fire({
           position: "center",

@@ -19,16 +19,18 @@
       </div>
 
       <div v-for="(card, index) in cards" :key="index">
-        <div v-if="index != 0">
+        <div v-if="card.src != ''">
           <v-row>
             <v-col class="d-flex child-flex">
-              <v-img
-                :src="card.src"
-                class="white--text align-end"
-                gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-                height="100%"
-                >{{ card.name }}</v-img
-              >
+              <v-card>
+                <v-img
+                  :src="card.src"
+                  class="white--text align-end"
+                  gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+                  height="100%"
+                >
+                  <v-card-title v-text="index + 1"></v-card-title> </v-img
+              ></v-card>
             </v-col>
           </v-row>
         </div>
@@ -53,6 +55,7 @@ export default {
       {
         name: [],
         src: [],
+        created: [],
       },
     ],
   }),
@@ -80,9 +83,12 @@ export default {
             let temp2 = time.split(":");
             let splitedTime = temp2[0] + temp2[1] + temp2[2];
             //to show images order by desc
-            let dateTime = splitedDate + splitedTime;
-            console.log(dateTime);
-            this.cards.push({ name: itemRef.name, src: url });
+            let dateTime = Number(splitedDate + splitedTime);
+            this.cards.push({
+              name: itemRef.name,
+              src: url,
+              created: dateTime,
+            });
           });
         });
       })
@@ -90,6 +96,12 @@ export default {
         // Uh-oh, an error occurred!
         console.log(error);
       });
+    setTimeout(() => {
+      this.cards.shift();
+      this.cards.sort((a, b) => {
+        return b.created - a.created;
+      });
+    }, 1000);
   },
   methods: {
     showFileUpload() {
